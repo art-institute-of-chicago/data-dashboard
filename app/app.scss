@@ -1,0 +1,25 @@
+// Color names from http://chir.ag/projects/name-that-color
+
+$color-text             : #333333;      // Mine Shaft
+
+// Variables for sizing, padding, margins, etc.
+
+$sidebar-width: 150px;
+
+body {
+    overflow-x: hidden;
+    color: $color-text;
+}
+
+// map.scss is generated using DennisBecker/grunt-sass-globbing
+// You have no control over the order in which @import statements appear
+// Wrap the contents of each scss file in a class to namespace them
+// Variables defined in main.scss should be accessible to all partials
+@import 'map';
+
+// Temporarily, we are going to override some annoying Bootstrap defaults
+// Later, we should import Bootstrap components selectively using npm
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
