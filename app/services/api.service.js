@@ -19,6 +19,7 @@
             init: init,
             get: get,
             error: error,
+            route: route,
         };
 
         function init( config ) {
@@ -61,6 +62,13 @@
             return "Unknown server error";
 
         }
+
+        function route( url ) {
+
+            return getFullUrl( url );
+
+        }
+
 
         // enforce certain url rules, for ease of use
         function getFullUrl( url ) {

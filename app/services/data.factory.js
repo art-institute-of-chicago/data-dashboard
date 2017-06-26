@@ -25,6 +25,7 @@
                 list: list,
                 detail: detail,
                 find: find,
+                route: route,
                 filter: filter,
             };
 
@@ -82,6 +83,13 @@
                 }
 
                 return datum;
+
+            }
+
+
+            function route( url ) {
+
+                return ApiService.route( url );
 
             }
 

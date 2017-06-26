@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.artwork = null;
+        vm.route = null;
 
         activate();
 
@@ -24,12 +25,14 @@
                 ArtworkService.list( { limit: 1 } ).promise.then( function() {
 
                     vm.artwork = ArtworkService.list( { limit: 1 } ).cache.clean[0];
+                    vm.route = ArtworkService.route( vm.artwork.id );
 
                 });
 
             } else {
 
                 vm.artwork = ArtworkService.detail( $stateParams.id ).cache.clean;
+                vm.route = ArtworkService.route( $stateParams.id );
 
             }
 

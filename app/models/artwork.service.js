@@ -14,6 +14,7 @@
         return {
             list: list,
             detail: detail,
+            route: route,
         };
 
         function list( config ) {
@@ -25,6 +26,12 @@
         function detail( id ) {
 
             return collection.detail( 'artworks/' + id );
+
+        }
+
+        function route( id ) {
+
+            return collection.route( 'artworks/' + id );
 
         }
 
