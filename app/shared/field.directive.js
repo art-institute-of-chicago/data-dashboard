@@ -11,8 +11,8 @@
         return {
             restrict: 'E',
             template: '<div class="row">'
-                    + '<div class="col-sm-2">{{ key }}</div>'
-                    + '<div class="col-md-10">{{ value }}</div>'
+                    + '<div class="col-sm-3 text-ellipsis"><strong title="{{ key }}">{{ key }}</strong></div>'
+                    + '<div class="col-sm-9">{{ value }}</div>'
                     + '</div>',
             scope: {
                 key: '@',
