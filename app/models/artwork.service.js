@@ -9,34 +9,11 @@
 
     function Service( DataFactory ) {
 
-        var collection = new DataFactory.Collection({
+        return new DataFactory.Collection({
+            route: 'artworks',
             id_field: 'id',
             wrapper: 'data',
         });
-
-        return {
-            list: list,
-            detail: detail,
-            route: route,
-        };
-
-        function list( config ) {
-
-            return collection.list( 'artworks', config );
-
-        }
-
-        function detail( id ) {
-
-            return collection.detail( 'artworks/' + id );
-
-        }
-
-        function route( id ) {
-
-            return collection.route( 'artworks/' + id );
-
-        }
 
     }
 
