@@ -13,11 +13,18 @@
             Collection: Collection,
         }
 
-        function Collection( ID_FIELD, WRAPPER ) {
+        function Collection( options ) {
+
+            var options = options || {};
+
+            var settings = {
+                id_field: options.id_field || 'id',
+                wrapper: options.wrapper || null,
+            };
 
             // See CacheFactory for more info on ID_FIELD and WRAPPER
 
-            var cache = new CacheFactory.Cache( ID_FIELD || 'id', WRAPPER );
+            var cache = new CacheFactory.Cache( settings.id_field, settings.wrapper );
             var filters = {};
 
             // define public interface

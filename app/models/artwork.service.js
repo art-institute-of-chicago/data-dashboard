@@ -9,7 +9,10 @@
 
     function Service( DataFactory ) {
 
-        var collection = new DataFactory.Collection( 'id', 'data' );
+        var collection = new DataFactory.Collection({
+            id_field: 'id',
+            wrapper: 'data',
+        });
 
         return {
             list: list,
