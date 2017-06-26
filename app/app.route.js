@@ -36,7 +36,8 @@
             })
             .state('entity.artwork', {
                 url: '/artworks/:id',
-                templateUrl: 'states/entity/artwork/artwork.html',
+                // TODO: Create custom templates for each?
+                templateUrl: 'states/entity/default.html',
                 controller: 'ArtworkController',
                 controllerAs: 'vm',
                 data: {

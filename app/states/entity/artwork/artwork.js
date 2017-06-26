@@ -10,7 +10,7 @@
 
         var vm = this;
 
-        vm.artwork = null;
+        vm.entity = null;
         vm.route = null;
 
         activate();
@@ -24,14 +24,14 @@
                 // Just for testing: if id is omitted, get first one in the list
                 ArtworkService.list( { limit: 1 } ).promise.then( function() {
 
-                    vm.artwork = ArtworkService.list( { limit: 1 } ).cache.clean[0];
-                    vm.route = ArtworkService.route( vm.artwork.id );
+                    vm.entity = ArtworkService.list( { limit: 1 } ).cache.clean[0];
+                    vm.route = ArtworkService.route( vm.entity.id );
 
                 });
 
             } else {
 
-                vm.artwork = ArtworkService.detail( $stateParams.id ).cache.clean;
+                vm.entity = ArtworkService.detail( $stateParams.id ).cache.clean;
                 vm.route = ArtworkService.route( $stateParams.id );
 
             }
