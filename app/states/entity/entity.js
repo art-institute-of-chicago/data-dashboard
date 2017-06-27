@@ -28,6 +28,13 @@
                         entity: 'entity.artwork',
                     },
                 },
+                {
+                    name: 'Agent',
+                    service: 'AgentService',
+                    states: {
+                        entity: 'entity.agent',
+                    },
+                },
             ];
 
             vm.form = {

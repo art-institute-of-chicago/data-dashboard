@@ -58,6 +58,12 @@
                 params: {
                     model: 'ArtworkService'
                 }
+            })
+            .state('entity.agent', {
+                url: '/agents/:id',
+                params: {
+                    model: 'AgentService'
+                }
             });
 
     }
