@@ -1,15 +1,36 @@
-<div class="row">
-    <div class="col-sm-3 text-ellipsis"><strong>JSON</strong></div>
-    <div class="col-sm-9"><a href="{{ vm.route }}">{{ vm.route }}</a></div>
-</div>
+<table class="table table-bordered">
 
-<hr/>
+    <thead>
+        <tr>
+            <th colspan="2">Metadata</th>
+        </tr>
+    </thead>
+    <tbody>
 
-<div ng-repeat="(key,value) in vm.entity">
+        <tr class="info">
+            <td><strong>JSON</strong></td>
+            <td><a href="{{ vm.route }}">{{ vm.route }}</a></td>
+        </tr>
 
-    <field
-        key="{{ key }}"
-        value="value"
-    ></field>
+    </tbody>
 
-</div>
+</table>
+
+<table class="table table-bordered table-striped">
+    <colgroup>
+        <col width="1">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr tfield ng-repeat="(key,value) in vm.entity" key="{{ key }}" value="value"></tr>
+
+    </tbody>
+</table>
+

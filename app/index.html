@@ -27,7 +27,7 @@
 <body ng-app="app" route-css-classnames>
 
     <!-- Everything will be rendered here -->
-    <div ng-controller="AppController as vm" class="container">
+    <div ng-controller="AppController as vm" class="container-fluid">
         <div ui-view></div>
     </div>
 
@@ -37,6 +37,7 @@
     <!-- Shared stuff -->
     <script src="shared/route-css-classnames.directive.js"></script>
     <script src="shared/field.directive.js"></script>
+    <script src="shared/field-tfield.directive.js"></script>
 
     <!-- Services -->
     <script src="services/api.service.js"></script>
