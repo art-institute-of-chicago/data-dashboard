@@ -1,0 +1,29 @@
+<div class="aic-view-entity" ng-submit="vm.open( vm.form.state, vm.form.id )">
+
+    <form class="form-horizontal">
+
+        <div class="input-group">
+
+            <select class="form-control" ng-model="vm.form.state">
+
+                <option ng-repeat="model in vm.models track by $index"
+                        value="{{model.states.entity}}">{{model.name}}</option>
+
+            </select>
+
+            <input type="text" class="form-control" placeholder="Identifier" ng-model="vm.form.id">
+
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">Go</button>
+            </span>
+
+
+        </div>
+
+    </form>
+
+    <hr/>
+
+    <div ui-view></div>
+
+</div>
