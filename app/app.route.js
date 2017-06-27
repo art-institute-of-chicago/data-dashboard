@@ -14,6 +14,25 @@
         // default route
         $urlRouterProvider.otherwise('/');
 
+        // decorator: set reasonable defaults for entity.* routes
+        $stateProvider.decorator('views', function( state, parent ) {
+
+            var config = state.self;
+
+            // console.log( config );
+
+            if( config.name.match(/^entity\./) ) {
+
+                config.templateUrl = config.templateUrl || 'states/entity/default.html';
+                config.controller = config.controller || 'DefaultEntityController';
+                config.controllerAs = 'vm';
+
+            }
+
+            return parent(state);
+
+        });
+
         // app routes
         $stateProvider
             .state('root', {
@@ -36,12 +55,8 @@
             })
             .state('entity.artwork', {
                 url: '/artworks/:id',
-                // TODO: Create custom templates for each?
-                templateUrl: 'states/entity/default.html',
-                controller: 'ArtworkController',
-                controllerAs: 'vm',
-                data: {
-                    cssClassnames: 'aic-state-artwork'
+                params: {
+                    model: 'ArtworkService'
                 }
             });
 

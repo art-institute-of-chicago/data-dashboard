@@ -31,17 +31,18 @@
             ];
 
             vm.form = {
-                state: vm.models[0].states.entity,
+                model: vm.models[0],
                 id: null,
             };
 
         }
 
-        function open( state, id ) {
+        function open( model, id ) {
 
-            console.log( arguments );
-
-            $state.go( state, { id: id } );
+            $state.go( model.states.entity, {
+                // model is optional since it has a default
+                id: id,
+            });
 
         }
 
