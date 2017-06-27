@@ -18,7 +18,7 @@
                     <div class="col-sm-9">
 
                         <ul ng-if="isArray( value )">
-                            <li ng-repeat="item in value">{{ item }}</li>
+                            <li ng-repeat="item in value track by $index">{{ item }}</li>
                         </ul>
 
                         <span ng-if="!isArray( value )">{{ value }} </span>
