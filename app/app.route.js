@@ -3,6 +3,7 @@
     angular
         .module('app')
         .config(routing)
+        .config(models)
         .config(rejections)
         .run(services)
         .run(redirection);
@@ -65,6 +66,40 @@
                     model: 'AgentService'
                 }
             });
+
+    }
+
+
+    models.$inject = ['$modelProvider'];
+
+    function models( $modelProvider ) {
+
+        $modelProvider.init([
+
+            'artwork',
+
+            'agent',
+            'artist',
+            'venue',
+
+            'department',
+            'object-type',
+            'category',
+            'agent-type',
+            'gallery',
+            'exhibition',
+
+            'image',
+            'video',
+            'link',
+            'sound',
+            'text',
+
+            'shop-category',
+            'product',
+            'event',
+
+        ]);
 
     }
 

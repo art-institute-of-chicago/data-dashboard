@@ -4,9 +4,9 @@
         .module('app')
         .controller('EntityController',  Controller);
 
-    Controller.$inject = ['$state'];
+    Controller.$inject = ['$state', '$model'];
 
-    function Controller( $state ) {
+    function Controller( $state, $model ) {
 
         var vm = this;
 
@@ -20,22 +20,7 @@
 
         function activate() {
 
-            vm.models = [
-                {
-                    name: 'Artwork',
-                    service: 'ArtworkService',
-                    states: {
-                        entity: 'entity.artwork',
-                    },
-                },
-                {
-                    name: 'Agent',
-                    service: 'AgentService',
-                    states: {
-                        entity: 'entity.agent',
-                    },
-                },
-            ];
+            vm.models = $model;
 
             vm.form = {
                 model: vm.models[0],
