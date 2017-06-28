@@ -7,15 +7,15 @@
         .run(services)
         .run(redirection);
 
-    routing.$inject = ['$stateProvider', '$urlRouterProvider'];
+    routing.$inject = ['$stateConfigProvider', '$urlRouterProvider'];
 
-    function routing( $stateProvider, $urlRouterProvider ) {
+    function routing( $stateConfigProvider, $urlRouterProvider ) {
 
         // default route
         $urlRouterProvider.otherwise('/');
 
         // decorator: set reasonable defaults for entity.* routes
-        $stateProvider.decorator('views', function( state, parent ) {
+        $stateConfigProvider.decorator('views', function( state, parent ) {
 
             var config = state.self;
 
@@ -34,7 +34,7 @@
         });
 
         // app routes
-        $stateProvider
+        $stateConfigProvider
             .state('root', {
                 url: '/',
                 redirectTo: {
