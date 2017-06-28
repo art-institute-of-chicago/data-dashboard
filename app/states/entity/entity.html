@@ -1,13 +1,13 @@
-<div class="aic-view-entity" ng-submit="vm.open( vm.form.state, vm.form.id )">
+<div class="aic-view-entity" ng-submit="vm.open( vm.form.model, vm.form.id )">
 
     <form class="form-horizontal">
 
         <div class="input-group">
 
-            <select class="form-control" ng-model="vm.form.state">
+            <select class="form-control" ng-model="vm.form.model">
 
                 <option ng-repeat="model in vm.models track by $index"
-                        value="{{model.states.entity}}">{{model.name}}</option>
+                        ng-value="model">{{model.label}}</option>
 
             </select>
 

@@ -4,9 +4,9 @@
         .module('app')
         .controller('EntityController',  Controller);
 
-    Controller.$inject = ['$state'];
+    Controller.$inject = ['$state', '$model'];
 
-    function Controller( $state ) {
+    function Controller( $state, $model ) {
 
         var vm = this;
 
@@ -20,28 +20,21 @@
 
         function activate() {
 
-            vm.models = [
-                {
-                    name: 'Artwork',
-                    service: 'ArtworkService',
-                    states: {
-                        entity: 'entity.artwork',
-                    },
-                },
-            ];
+            vm.models = $model;
 
             vm.form = {
-                state: vm.models[0].states.entity,
+                model: vm.models[0],
                 id: null,
             };
 
         }
 
-        function open( state, id ) {
+        function open( model, id ) {
 
-            console.log( arguments );
-
-            $state.go( state, { id: id } );
+            $state.go( model.states.entity, {
+                // model is optional since it has a default
+                id: id,
+            });
 
         }
 

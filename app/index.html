@@ -19,6 +19,13 @@
     <!-- AngularUI Router -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
 
+    <!-- Pluralize -->
+    <script src="https://cdn.rawgit.com/blakeembrey/pluralize/3da4a24a/pluralize.js"></script>
+
+    <!-- change-case (window.changeCase) -->
+    <!-- https://github.com/blakeembrey/change-case -->
+    <script src="https://wzrd.in/standalone/change-case@latest"></script>
+
     <!-- Site-specific styles, compiled from SCSS using grunt -->
     <link href="app.css" rel="stylesheet">
 
@@ -45,12 +52,17 @@
     <script src="services/data.factory.js"></script>
     <script src="services/mapper.service.js"></script>
 
-    <!-- Models -->
+    <!-- Custom Models -->
     <script src="models/artwork.service.js"></script>
+    <script src="models/agent.service.js"></script>
+
+    <!-- Generic Models -->
+    <script src="services/state-config.provider.js"></script>
+    <script src="services/model.provider.js"></script>
 
     <!-- States -->
     <script src="states/entity/entity.js"></script>
-    <script src="states/entity/artwork/artwork.js"></script>
+    <script src="states/entity/default.js"></script>
 
     <!-- Load the app itself last -->
     <script src="app.route.js"></script>

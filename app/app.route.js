@@ -3,19 +3,39 @@
     angular
         .module('app')
         .config(routing)
+        .config(models)
         .config(rejections)
         .run(services)
         .run(redirection);
 
-    routing.$inject = ['$stateProvider', '$urlRouterProvider'];
+    routing.$inject = ['$stateConfigProvider', '$urlRouterProvider'];
 
-    function routing( $stateProvider, $urlRouterProvider ) {
+    function routing( $stateConfigProvider, $urlRouterProvider ) {
 
         // default route
         $urlRouterProvider.otherwise('/');
 
+        // decorator: set reasonable defaults for entity.* routes
+        $stateConfigProvider.decorator('views', function( state, parent ) {
+
+            var config = state.self;
+
+            // console.log( config );
+
+            if( config.name.match(/^entity\./) ) {
+
+                config.templateUrl = config.templateUrl || 'states/entity/default.html';
+                config.controller = config.controller || 'DefaultEntityController';
+                config.controllerAs = 'vm';
+
+            }
+
+            return parent(state);
+
+        });
+
         // app routes
-        $stateProvider
+        $stateConfigProvider
             .state('root', {
                 url: '/',
                 redirectTo: {
@@ -36,14 +56,50 @@
             })
             .state('entity.artwork', {
                 url: '/artworks/:id',
-                // TODO: Create custom templates for each?
-                templateUrl: 'states/entity/default.html',
-                controller: 'ArtworkController',
-                controllerAs: 'vm',
-                data: {
-                    cssClassnames: 'aic-state-artwork'
+                params: {
+                    model: 'ArtworkService'
+                }
+            })
+            .state('entity.agent', {
+                url: '/agents/:id',
+                params: {
+                    model: 'AgentService'
                 }
             });
+
+    }
+
+
+    models.$inject = ['$modelProvider'];
+
+    function models( $modelProvider ) {
+
+        $modelProvider.init([
+
+            'artwork',
+
+            'agent',
+            'artist',
+            'venue',
+
+            'department',
+            'object-type',
+            'category',
+            'agent-type',
+            'gallery',
+            'exhibition',
+
+            'image',
+            'video',
+            'link',
+            'sound',
+            'text',
+
+            'shop-category',
+            'product',
+            'event',
+
+        ]);
 
     }
 
