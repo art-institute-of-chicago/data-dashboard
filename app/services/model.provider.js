@@ -165,15 +165,18 @@
                 item = { model: item };
             }
 
-            // Ensure that the model name is hyphen-case and singular
+            // Ensure that the model name is hyphen-case
             item.model = changeCase.paramCase( item.model );
+
+            // Record whether the passed model name is plural
             item.many = item.many || pluralize( item.model ) === item.model;
+
+            // Ensure the recorded model name is singular
             item.model = pluralize( item.model, 1 );
 
             // All fields are underscored and singular
             var field = changeCase.snakeCase( item.model );
 
-            // If name is singular, it's a O2O or M2O, else M2M..?
             // Expect _id and (opt) title, vs. expecting an _ids array.
             if( item.many ) {
 
