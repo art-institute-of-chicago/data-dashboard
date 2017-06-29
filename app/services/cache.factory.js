@@ -145,7 +145,7 @@
             function getDatum( id, source ) {
 
                 // Ensure id is an integer
-                id = parseInt( id );
+                // id = parseInt( id );
 
                 // Search for existing datum
                 for( var i = 0; i < source.length; i++ ) {
