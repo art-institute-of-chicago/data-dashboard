@@ -20,10 +20,10 @@
 
         function activate() {
 
-            vm.models = $model;
+            vm.models = $model.list();
 
             vm.form = {
-                model: vm.models[0],
+                model: $model.get( $state.current.name ),
                 id: null,
             };
 

@@ -15,7 +15,35 @@
 
         // See entity.js
         this.$get = function() {
-            return _models;
+
+            return {
+                list: list,
+                get: get,
+            };
+
+            function list() {
+                return _models;
+            }
+
+            function get( value ) {
+
+                // Expect value to be a model name
+
+                // Allow passing $state.current.name
+                var state = value.indexOf('.');
+                if( state ) {
+                    value = value.substring( state + 1 );
+                }
+
+                // TODO: Allow searching by other fields?
+
+                // Unsupported in IE
+                return _models.find( function( model ) {
+                    return model.name === value;
+                });
+
+            }
+
         };
 
         return this;
