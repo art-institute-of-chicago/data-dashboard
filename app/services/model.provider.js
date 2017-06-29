@@ -115,11 +115,7 @@
 
         function DefaultModelService( DataFactory ) {
 
-            return new DataFactory.Collection({
-                route: model.api.route,
-                id_field: model.api.id_field,
-                wrapper: model.api.wrapper,
-            });
+            return new DataFactory.Collection( model.api );
 
         }
 
