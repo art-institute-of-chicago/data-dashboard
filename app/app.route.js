@@ -76,18 +76,69 @@
 
         $modelProvider.models([
 
-            'artwork',
+            {
+                name: 'artwork',
+                linked: [
+                    {
+                        // Testing partial overrides
+                        // Incomplete, but default format
+                        field: 'department_id',
+                        title: 'department',
+                        model: 'department',
+                    },
+                    'object-type',
+                    'gallery',
+                    'artists',
+                    'categories',
+                    {
+                        // Custom id field, but normal model
+                        field: 'copyright_representative_ids',
+                        model: 'agents',
+                    },
+                    // TODO: sets and parts? Subresources.
+                ],
+            },
 
-            'agent',
+            {
+                name: 'agent',
+                linked: [
+                    'agent-type'
+                ],
+            },
+
             'artist',
             'venue',
 
             'department',
             'object-type',
-            'category',
+
+            {
+                name: 'category',
+                linked: [
+                    {
+                        field: 'parent_id',
+                        model: 'category',
+                    }
+                ],
+            },
+
             'agent-type',
-            'gallery',
-            'exhibition',
+
+            {
+                name: 'gallery',
+                linked: [
+                    'categories',
+                ],
+            },
+
+            {
+                name: 'exhibition',
+                linked: [
+                    'gallery',
+                    'artworks',
+                    'venue',
+                ],
+            },
 
             'image',
             'video',

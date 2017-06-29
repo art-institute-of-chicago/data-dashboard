@@ -62,6 +62,9 @@
                 },
             };
 
+            // Process definitions of linked models
+            model.api.linked = item.linked ? getLinkedModels( item.linked ) : null;
+
             // Save the configuration for retrieval
             _models.push( model );
 
@@ -118,6 +121,54 @@
             return new DataFactory.Collection( model.api );
 
         }
+
+    }
+
+    function getLinkedModels( items ) {
+
+        // Our goal is to take the (relatively) convenient config structure
+        // and turn it into something useable by the DataFactory.Collection
+        var models = []
+
+
+        items.forEach( function( item ) {
+
+            if( typeof item === 'string' ) {
+                item = { model: item };
+            }
+
+            // Ensure that the model name is hyphen-case and singular
+            item.model = changeCase.paramCase( item.model );
+            item.many = item.many || pluralize( item.model ) === item.model;
+            item.model = pluralize( item.model, 1 );
+
+            // All fields are underscored and singular
+            var field = changeCase.snakeCase( item.model );
+
+            // If name is singular, it's a O2O or M2O, else M2M..?
+            // Expect _id and (opt) title, vs. expecting an _ids array.
+            if( item.many ) {
+
+                // Expect _ids array
+                item.field = item.field || field + '_ids';
+
+            } else {
+
+                // Expect _id field
+                item.field = item.field || field + '_id';
+
+                // Expect (optional) title field, which usually does not end w/ _title
+                item.title = item.title || field;
+
+            }
+
+            item.service = item.service || changeCase.pascalCase( item.model ) + 'Service'
+
+            models.push( item );
+
+        });
+
+        return models;
 
     }
 
