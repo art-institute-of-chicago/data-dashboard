@@ -5,9 +5,9 @@
         .module('app')
         .directive('tfield', Directive);
 
-    Directive.$inject = ['MapperService'];
+    Directive.$inject = [ '$state', '$model', 'MapperService'];
 
-    function Directive( MapperService ) {
+    function Directive( $state, $model, MapperService ) {
         return {
             restrict: 'A',
             template: `
@@ -29,6 +29,15 @@
                 value: '=',
             },
             link: function( scope, element, attr ) {
+
+                // Remember the current model
+                var model = $model.get( $state.current.name );
+
+                var isTitle = model.api.linked.some( function(e) { return e.title === scope.key } );
+
+                if( isTitle ) {
+                    element.remove();
+                }
 
                 scope.label = MapperService.getLabel( scope.key );
 
