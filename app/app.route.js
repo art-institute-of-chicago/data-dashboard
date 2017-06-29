@@ -95,7 +95,15 @@
                         field: 'copyright_representative_ids',
                         model: 'agents',
                     },
-                    // TODO: sets and parts? Subresources.
+                    // TODO: sets and parts? Subresources?
+                    {
+                        field: 'set_ids',
+                        model: 'artworks',
+                    },
+                    {
+                        field: 'part_ids',
+                        model: 'artworks',
+                    },
                 ],
             },
 
