@@ -74,7 +74,7 @@
 
     function models( $modelProvider ) {
 
-        $modelProvider.init([
+        $modelProvider.models([
 
             'artwork',
 
