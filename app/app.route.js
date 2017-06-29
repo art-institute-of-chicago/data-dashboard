@@ -92,15 +92,18 @@
                     'categories',
                     {
                         // Custom id field, but normal model
+                        label: 'Copyright Representatives',
                         field: 'copyright_representative_ids',
                         model: 'agents',
                     },
                     // TODO: sets and parts? Subresources?
                     {
+                        label: 'Sets',
                         field: 'set_ids',
                         model: 'artworks',
                     },
                     {
+                        label: 'Parts',
                         field: 'part_ids',
                         model: 'artworks',
                     },
