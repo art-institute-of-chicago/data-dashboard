@@ -6,6 +6,7 @@
         .config(models)
         .config(rejections)
         .run(services)
+        .run(scroll)
         .run(redirection);
 
     routing.$inject = ['$stateConfigProvider', '$urlRouterProvider'];
@@ -182,6 +183,19 @@
         // TODO: Load config from file?
         ApiService.init({
             url: 'http://data-aggregator.dev/api/v1/',
+        });
+
+    }
+
+
+    scroll.$inject = ['$rootScope'];
+
+    function scroll( $rootScope ) {
+
+        // Scroll to top on state change
+        // https://stackoverflow.com/questions/26444418/autoscroll-to-top-with-ui-router-and-angularjs
+        $rootScope.$on('$stateChangeSuccess', function() {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         });
 
     }
