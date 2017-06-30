@@ -1,10 +1,11 @@
 <div class="aic-view-entity" ng-submit="vm.open( vm.form.model, vm.form.id )">
 
-    <form class="form-horizontal">
+    <form class="form-horizontal" name="vm.form.instance">
 
         <div class="input-group">
 
-            <select class="form-control" ng-model="vm.form.model">
+            <select class="form-control" ng-model="vm.form.model"
+                    ng-change="vm.resetIdInput( {{vm.form.instance.$pristine}} )">
 
                 <option ng-repeat="model in vm.models track by $index"
                         ng-value="model">{{model.label}}</option>
