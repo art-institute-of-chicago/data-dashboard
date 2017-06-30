@@ -4,15 +4,17 @@
         .module('app')
         .controller('EntityController',  Controller);
 
-    Controller.$inject = ['$state', '$model'];
+    Controller.$inject = ['$scope', '$state', '$model'];
 
-    function Controller( $state, $model ) {
+    function Controller( $scope, $state, $model ) {
 
         var vm = this;
 
-        vm.models = null;
-        vm.form = null;
+        vm.models = $model.list();
+        vm.form = {};
         vm.open = open;
+
+        $scope.$on('$stateChangeSuccess', activate );
 
         activate();
 
@@ -20,12 +22,9 @@
 
         function activate() {
 
-            vm.models = $model.list();
-
-            vm.form = {
-                model: $model.get( $state.current.name ),
-                id: null,
-            };
+            // https://github.com/angular-ui/ui-router/issues/1372
+            vm.form.id = $state.params.id;
+            vm.form.model = $model.get( $state.current.name );
 
         }
 
