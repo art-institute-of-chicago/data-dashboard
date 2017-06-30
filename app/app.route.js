@@ -118,8 +118,20 @@
                 ],
             },
 
-            'artist',
-            'venue',
+            {
+                name: 'artist',
+                linked: [
+                    'agent-type'
+                ],
+            },
+
+
+            {
+                name: 'venue',
+                linked: [
+                    'agent-type'
+                ],
+            },
 
             'department',
             'object-type',
@@ -146,20 +158,81 @@
             {
                 name: 'exhibition',
                 linked: [
+                    'department',
                     'gallery',
                     'artworks',
-                    'venue',
+                    'venues',
                 ],
             },
 
-            'image',
-            'video',
-            'link',
-            'sound',
-            'text',
+            {
+                name: 'image',
+                linked: [
+                    'artist',
+                    'categories',
+                    'artworks',
+                ],
+            },
 
-            'shop-category',
-            'product',
+            {
+                name: 'video',
+                linked: [
+                    'artist',
+                    'categories',
+                ],
+            },
+
+
+            {
+                name: 'link',
+                linked: [
+                    'artist',
+                    'categories',
+                ],
+            },
+
+            {
+                name: 'sound',
+                linked: [
+                    'artist',
+                    'categories',
+                ],
+            },
+
+            {
+                name: 'text',
+                linked: [
+                    'artist',
+                    'categories',
+                ],
+            },
+
+            {
+                name: 'shop-category',
+                linked: [
+                    {
+                        label: 'Parent Shop Cat.',
+                        field: 'parent_id',
+                        model: 'shop-category',
+                    },
+                    {
+                        label: 'Child Shop Cat.',
+                        field: 'child_ids',
+                        model: 'shop-categories',
+                    },
+                ],
+            },
+
+            {
+                name: 'product',
+                linked: [
+                    {
+                        field: 'category_ids',
+                        model: 'shop-categories',
+                    },
+                ],
+            },
+
             'event',
 
         ]);
