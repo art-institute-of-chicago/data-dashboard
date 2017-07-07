@@ -108,6 +108,9 @@
                         field: 'part_ids',
                         model: 'artworks',
                     },
+                    'tours',
+                    'publications',
+                    'sites',
                 ],
             },
 
@@ -234,6 +237,15 @@
             },
 
             'event',
+            'tour',
+            'publication',
+	    {
+		name: 'site',
+                linked: [
+                    'artworks',
+                    'exhibition',
+                ],
+	    }
 
         ]);
 
