@@ -239,13 +239,14 @@
             'event',
             'tour',
             'publication',
-	    {
-		name: 'site',
+
+            {
+                name: 'site',
                 linked: [
                     'artworks',
                     'exhibition',
                 ],
-	    }
+            },
 
         ]);
 
