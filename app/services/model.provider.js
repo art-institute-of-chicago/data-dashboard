@@ -183,6 +183,9 @@
                 // Expect _ids array
                 item.field = item.field || field + '_ids';
 
+                // Set label to the plural form of the model name
+                item.label = item.label || changeCase.titleCase( pluralize( item.model ) );
+
             } else {
 
                 // Expect _id field
