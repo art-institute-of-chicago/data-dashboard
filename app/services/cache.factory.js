@@ -63,20 +63,27 @@
                 detail: detail,
             };
 
-            function update( response ) {
+            function update( input ) {
+
+                // Determine if this is response.data or just data
+                // This might fail if response.data has all these properties too
+                // Checking for two should be enough
+                if( input.hasOwnProperty( 'data' ) && input.hasOwnProperty( 'status' ) ) {
+                    input = input.data;
+                }
 
                 // Determine if we need to unwrap the data
-                if( WRAPPER && response.data.hasOwnProperty( WRAPPER ) ) {
-                    response.data = response.data[ WRAPPER ];
+                if( WRAPPER && input.hasOwnProperty( WRAPPER ) ) {
+                    input = input[ WRAPPER ];
                 }
 
                 // Determine we are updating all data
-                if( response.data.constructor === Array ) {
-                    return updateData( response.data );
+                if( input.constructor === Array ) {
+                    return updateData( input );
                 }
 
                 // Assume that otherwise, we're updating one datum
-                return updateDatum( response.data );
+                return updateDatum( input );
 
             }
 
