@@ -1,4 +1,12 @@
-<h1>{{ vm.entity.title }}</h1>
+<h1>
+
+    <span>{{ vm.entity.title }}</span>
+
+    <button type="button" class="btn btn-sm btn-info pull-right" ng-click="vm.refresh()">
+        <span class="glyphicon glyphicon-refresh"></span>
+    </button>
+
+</h1>
 
 <hr/>
 

@@ -15,6 +15,8 @@
         vm.entity = null;
         vm.route = null;
 
+        vm.refresh = refresh;
+
         activate();
 
         return vm;
@@ -35,12 +37,16 @@
 
             } else {
 
-                vm.entity = ModelService.detail( $stateParams.id ).cache.clean;
+                vm.entity = ModelService.find( $stateParams.id ).clean;
                 vm.route = ModelService.route( $stateParams.id );
 
             }
 
+        }
 
+        function refresh() {
+
+            vm.entity = ModelService.detail( vm.entity.id ).cache.clean;
 
         }
 
