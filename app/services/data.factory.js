@@ -26,7 +26,7 @@
             // See CacheFactory for more info on ID_FIELD and WRAPPER
 
             var cache = new CacheFactory.Cache( settings.id_field, settings.wrapper );
-            var filters = {};
+            var params = {};
 
             // define public interface
             return {
@@ -133,9 +133,9 @@
                 // config is an optional argument
                 config = config || {};
 
-                // apply any defined filters
+                // apply any defined params
                 angular.merge( config, {
-                    params: filters
+                    params: params
                 });
 
                 return config;
