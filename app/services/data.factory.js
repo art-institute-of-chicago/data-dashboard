@@ -5,9 +5,9 @@
         .module('app')
         .factory('DataFactory', Service);
 
-    Service.$inject = ['$q', 'ApiService', 'CacheFactory'];
+    Service.$inject = ['$q', '$injector', 'ApiService', 'CacheFactory'];
 
-    function Service( $q, ApiService, CacheFactory ) {
+    function Service( $q, $injector, ApiService, CacheFactory ) {
 
         return {
             Collection: Collection,
@@ -21,12 +21,20 @@
                 route: options.route || 'resources',
                 id_field: options.id_field || 'id',
                 wrapper: options.wrapper || null,
+                include: options.include || null,
             };
 
             // See CacheFactory for more info on ID_FIELD and WRAPPER
 
             var cache = new CacheFactory.Cache( settings.id_field, settings.wrapper );
             var params = {};
+
+            // Add ?include= to parameters
+            if( settings.include ) {
+
+                params.include = settings.include.map( function(e) { return e.field; } ).join();
+
+            }
 
             // define public interface
             return {
@@ -100,6 +108,8 @@
             // it will update the cache without making a server call
             function inject( datum ) {
 
+                processResponse( datum );
+
                 return cache.update( datum );
 
             }
@@ -119,6 +129,9 @@
                 // console.log( 'GET', url, config );
 
                 var promise = ApiService.get( url, config );
+
+                // Update promise to return the transformed response
+                promise = promise.then( processResponse );
 
                 // TODO: Improve promise chaining
                 promise.then( cache.update, cache.error );
@@ -148,6 +161,50 @@
                 });
 
                 return config;
+
+            }
+
+
+            // Accepts response, response.data, and response.data[wrapper]
+            function processResponse( response ) {
+
+                // We are only interested in the data
+                var data = response.data || response;
+
+                // Unwrap if necessary...
+                data = settings.wrapper ? data[settings.wrapper] || data : data
+
+                // Process includes...
+                if( Array.isArray( data ) ) {
+                    data.map( processDatum );
+                } else {
+                    processDatum( data );
+                }
+
+                return response;
+
+            }
+
+
+            function processDatum( datum ) {
+
+                if( !settings.include ) {
+
+                    return datum;
+
+                }
+
+                settings.include.forEach( function( item ) {
+
+                    if( datum.hasOwnProperty( item.field ) ) {
+
+                        $injector.get( item.service ).inject( datum[item.field] );
+
+                        delete datum[item.field];
+
+                    }
+
+                });
 
             }
 
