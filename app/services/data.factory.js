@@ -5,9 +5,9 @@
         .module('app')
         .factory('DataFactory', Service);
 
-    Service.$inject = ['$q', 'ApiService', 'CacheFactory'];
+    Service.$inject = ['$q', '$injector', 'ApiService', 'CacheFactory'];
 
-    function Service( $q, ApiService, CacheFactory ) {
+    function Service( $q, $injector, ApiService, CacheFactory ) {
 
         return {
             Collection: Collection,
@@ -21,20 +21,28 @@
                 route: options.route || 'resources',
                 id_field: options.id_field || 'id',
                 wrapper: options.wrapper || null,
+                include: options.include || null,
             };
 
             // See CacheFactory for more info on ID_FIELD and WRAPPER
 
             var cache = new CacheFactory.Cache( settings.id_field, settings.wrapper );
-            var filters = {};
+            var params = {};
+
+            // Add ?include= to parameters
+            if( settings.include ) {
+
+                params.include = settings.include.map( function(e) { return e.field; } ).join();
+
+            }
 
             // define public interface
             return {
                 list: list,
                 detail: detail,
                 find: find,
+                inject: inject,
                 route: route,
-                filter: filter,
             };
 
 
@@ -43,7 +51,7 @@
                 var url = getUrl();
                 var config = getConfig( config );
 
-                var promise = ApiService.get( url, config ).then( cache.update, cache.error );
+                var promise = query( url, config );
                 var data = cache.list();
 
                 return {
@@ -59,7 +67,7 @@
                 var url = getUrl( id );
                 var config = getConfig( config );
 
-                var promise = ApiService.get( url, config ).then( cache.update, cache.error );
+                var promise = query( url, config );
                 var datum = cache.detail( id );
 
                 return {
@@ -84,7 +92,7 @@
                 // See also: CacheFactory.Cache.updateDatum()
                 if( !datum.initialized ) {
 
-                    ApiService.get( url, config ).then( cache.update, cache.error );
+                    query( url, config );
 
                     // Necessary so as to avoid inifinite digest cycles.
                     datum.initialized = true;
@@ -92,6 +100,17 @@
                 }
 
                 return datum;
+
+            }
+
+
+            // inject() is an in-between of detail() and update()
+            // it will update the cache without making a server call
+            function inject( datum ) {
+
+                processResponse( datum );
+
+                return cache.update( datum );
 
             }
 
@@ -105,12 +124,19 @@
             }
 
 
-            // Use this to set persistent param filters for all GET requests
-            // Expects an object of params as per Angular's $http.config
-            // TODO: Additive filters? Currently, it's a `set` situation.
-            function filter( params ) {
+            function query( url, config ) {
 
-                return filters = params || {};
+                console.log( 'GET', url, config );
+
+                var promise = ApiService.get( url, config );
+
+                // Update promise to return the transformed response
+                promise = promise.then( processResponse );
+
+                // TODO: Improve promise chaining
+                promise.then( cache.update, cache.error );
+
+                return promise;
 
             }
 
@@ -129,12 +155,68 @@
                 // config is an optional argument
                 config = config || {};
 
-                // apply any defined filters
+                // apply any defined params
                 angular.merge( config, {
-                    params: filters
+                    params: params
                 });
 
                 return config;
+
+            }
+
+
+            // Accepts response, response.data, and response.data[wrapper]
+            function processResponse( response ) {
+
+                // We are only interested in the data
+                var data = response.data || response;
+
+                // Unwrap if necessary...
+                data = settings.wrapper ? data[settings.wrapper] || data : data
+
+                // Process includes...
+                if( Array.isArray( data ) ) {
+                    data.map( processDatum );
+                } else {
+                    processDatum( data );
+                }
+
+                return response;
+
+            }
+
+
+            function processDatum( datum ) {
+
+                processIncludes( datum );
+
+                // TODO: Add more steps here as required
+                console.log( "Processed " + pluralize(settings.route, 1)
+                    + " #" + datum.id
+                    + " (" + datum.title + ")"
+                );
+
+            }
+
+            function processIncludes( datum ) {
+
+                if( !settings.include ) {
+
+                    return datum;
+
+                }
+
+                settings.include.forEach( function( item ) {
+
+                    if( datum.hasOwnProperty( item.field ) ) {
+
+                        $injector.get( item.service ).inject( datum[item.field] );
+
+                        delete datum[item.field];
+
+                    }
+
+                });
 
             }
 

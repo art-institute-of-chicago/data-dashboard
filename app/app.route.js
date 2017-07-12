@@ -112,6 +112,29 @@
                     'publications',
                     'sites',
                 ],
+                include: [
+                    'artists',
+                    'categories',
+                    {
+                        field: 'copyrightRepresentatives',
+                        model: 'agents',
+                    },
+                    {
+                        field: 'parts',
+                        model: 'artworks',
+                    },
+                    {
+                        field: 'sets',
+                        model: 'artworks',
+                    },
+                    // 'dates',
+                    // 'catalogues',
+                    // 'committees',
+                    // 'terms',
+                    // 'images',
+                    'publications',
+                    'tours',
+                ],
             },
 
             {
@@ -175,6 +198,10 @@
                     'categories',
                     'artworks',
                 ],
+                include: [
+                    'categories',
+                    'artworks',
+                ],
             },
 
             {
@@ -182,6 +209,9 @@
                 linked: [
                     'artist',
                     'categories',
+                ],
+                include: [
+                    'categories'
                 ],
             },
 
@@ -192,6 +222,9 @@
                     'artist',
                     'categories',
                 ],
+                include: [
+                    'categories'
+                ],
             },
 
             {
@@ -200,6 +233,9 @@
                     'artist',
                     'categories',
                 ],
+                include: [
+                    'categories'
+                ],
             },
 
             {
@@ -207,6 +243,9 @@
                 linked: [
                     'artist',
                     'categories',
+                ],
+                include: [
+                    'categories'
                 ],
             },
 
@@ -224,6 +263,12 @@
                         model: 'shop-categories',
                     },
                 ],
+                include: [
+                    {
+                        field: 'children',
+                        model: 'shop-categories',
+                    },
+                ],
             },
 
             {
@@ -231,6 +276,12 @@
                 linked: [
                     {
                         field: 'category_ids',
+                        model: 'shop-categories',
+                    },
+                ],
+                include: [
+                    {
+                        field: 'categories',
                         model: 'shop-categories',
                     },
                 ],

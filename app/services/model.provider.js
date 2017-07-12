@@ -93,6 +93,9 @@
             // Process definitions of linked models
             model.api.linked = item.linked ? getLinkedModels( item.linked ) : null;
 
+            // Process embedded models
+            model.api.include = item.include ? getIncludedModels( item.include ) : null;
+
             // Save the configuration for retrieval
             _models.push( model );
 
@@ -196,6 +199,37 @@
 
             }
 
+            item.service = item.service || changeCase.pascalCase( item.model ) + 'Service'
+
+            models.push( item );
+
+        });
+
+        return models;
+
+    }
+
+    function getIncludedModels( items ) {
+
+        var models = [];
+
+        items.forEach( function( item ) {
+
+            // Field is the outgoing include expected by Laravel
+            if( typeof item === 'string' ) {
+                item = { field: item };
+            }
+
+            // Derive the model name
+            item.model = item.model || item.field;
+
+            // Ensure that the model name is hyphen-case
+            item.model = changeCase.paramCase( item.model );
+
+            // Ensure that the model name is singular
+            item.model = pluralize( item.model, 1 );
+
+            // Derive the service name
             item.service = item.service || changeCase.pascalCase( item.model ) + 'Service'
 
             models.push( item );
