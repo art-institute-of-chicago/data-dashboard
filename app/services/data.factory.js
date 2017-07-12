@@ -35,7 +35,6 @@
                 find: find,
                 inject: inject,
                 route: route,
-                filter: filter,
             };
 
 
@@ -115,12 +114,7 @@
             }
 
 
-            // Use this to set persistent param filters for all GET requests
-            // Expects an object of params as per Angular's $http.config
-            // TODO: Additive filters? Currently, it's a `set` situation.
-            function filter( params ) {
 
-                return filters = params || {};
 
             }
 
