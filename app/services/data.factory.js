@@ -43,7 +43,7 @@
                 var url = getUrl();
                 var config = getConfig( config );
 
-                var promise = ApiService.get( url, config ).then( cache.update, cache.error );
+                var promise = query( url, config );
                 var data = cache.list();
 
                 return {
@@ -59,7 +59,7 @@
                 var url = getUrl( id );
                 var config = getConfig( config );
 
-                var promise = ApiService.get( url, config ).then( cache.update, cache.error );
+                var promise = query( url, config );
                 var datum = cache.detail( id );
 
                 return {
@@ -84,7 +84,7 @@
                 // See also: CacheFactory.Cache.updateDatum()
                 if( !datum.initialized ) {
 
-                    ApiService.get( url, config ).then( cache.update, cache.error );
+                    query( url, config );
 
                     // Necessary so as to avoid inifinite digest cycles.
                     datum.initialized = true;
@@ -114,7 +114,16 @@
             }
 
 
+            function query( url, config ) {
 
+                // console.log( 'GET', url, config );
+
+                var promise = ApiService.get( url, config );
+
+                // TODO: Improve promise chaining
+                promise.then( cache.update, cache.error );
+
+                return promise;
 
             }
 
