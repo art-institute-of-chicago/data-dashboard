@@ -23,10 +23,12 @@
 
             if( !$stateParams.id ) {
 
-                // Just for testing: if id is omitted, get first one in the list
-                ModelService.list( { limit: 1 } ).promise.then( function() {
+                var request = ModelService.list( { params: { limit: 1 } } );
 
-                    vm.entity = ModelService.list( { limit: 1 } ).cache.clean[0];
+                // Just for testing: if id is omitted, get first one in the list
+                request.promise.then( function( response ) {
+
+                    vm.entity = ModelService.find( response.data.data[0].id ).clean;
                     vm.route = ModelService.route( vm.entity.id );
 
                 });
