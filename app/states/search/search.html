@@ -1,0 +1,27 @@
+<table st-table="vm.displayed" st-safe-src="vm.results" class="table table-striped">
+    <colgroup>
+        <col width="80"> <!-- Fits 8 digits comfortably -->
+        <col>
+        <col>
+        <col width="45">
+    </colgroup>
+    <thead>
+        <tr>
+            <th st-sort="api_id" st-sort-default="true">ID</th>
+            <th st-sort="api_model" st-sort-default="true">Model</th>
+            <th st-sort="title" colspan="2">Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="row in vm.displayed">
+            <td>{{ row.api_id }}</td>
+            <td>{{ row.api_model }}</td>
+            <td>{{ row.title }}</td>
+            <td>
+                <a href="javascript:;" class="btn btn-sm btn-default">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

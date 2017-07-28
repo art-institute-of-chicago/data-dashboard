@@ -66,6 +66,13 @@
                 params: {
                     model: 'AgentService'
                 }
+            })
+            .state('search', {
+                url: '/search',
+                // Note: omit the trailing slash!
+                templateUrl: 'states/search/search.html',
+                controller: 'SearchController',
+                controllerAs: 'vm',
             });
 
     }
