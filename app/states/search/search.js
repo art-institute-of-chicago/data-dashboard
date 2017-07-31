@@ -12,7 +12,7 @@
 
         vm.results = [];
 
-        vm.search = search;
+        vm.pipe = pipe;
 
         activate();
 
@@ -20,16 +20,30 @@
 
         function activate() {
 
-            // Execute a serach w/ empty query to populate table
-            search();
+            // pipe will be triggered automatically on page load
 
         }
 
-        function search( query ) {
+        function pipe( tableState, tableCtrl ) {
 
-            SearchService.get( query ).then( function( response ) {
+            var query = tableState.search.predicateObject ? tableState.search.predicateObject.$ : null;
 
-                vm.results = response.data.response.docs;
+            SearchService.get( {
+
+                query: query,
+                start: tableState.pagination.start,
+                rows: tableState.pagination.number,
+
+            }).then( function( response ) {
+
+                // Shorten for brevity
+                var data = response.data.response;
+
+                vm.results = data.docs;
+
+                tableState.pagination.start = data.start;
+                tableState.pagination.totalItemCount = data.numFound;
+                tableState.pagination.numberOfPages = Math.ceil( data.numFound / data.start );
 
             });
 

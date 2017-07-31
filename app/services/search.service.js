@@ -20,15 +20,15 @@
 
         // returns an angular promise
         // performs a strict search for phrase
-        function get( query ) {
+        function get( params ) {
 
-            var offset = 0;
+            var query = params.query;
 
             return $http.get( url, {
                 params: {
                     wt: 'json',
-                    rows: 50,
-                    start: offset,
+                    rows: params.rows,
+                    start: params.start,
                     q: query ? query : "*.*",
                 }
             });
