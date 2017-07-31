@@ -26,6 +26,9 @@
     <!-- https://github.com/blakeembrey/change-case -->
     <script src="https://wzrd.in/standalone/change-case@latest"></script>
 
+    <!-- angular-smart-table -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.1.8/smart-table.min.js"></script>
+
     <!-- Site-specific styles, compiled from SCSS using grunt -->
     <link href="app.css" rel="stylesheet">
 
@@ -35,7 +38,8 @@
 
     <!-- Everything will be rendered here -->
     <div ng-controller="AppController as vm" class="container-fluid">
-        <div ui-view></div>
+        <div ui-view="list" class="aic-layout-list"></div>
+        <div ui-view="detail" class="aic-layout-detail"></div>
     </div>
 
     <!-- Bootstrapping -->
@@ -51,6 +55,7 @@
     <script src="services/cache.factory.js"></script>
     <script src="services/data.factory.js"></script>
     <script src="services/mapper.service.js"></script>
+    <script src="services/search.service.js"></script>
 
     <!-- Custom Models -->
 
@@ -61,6 +66,7 @@
     <!-- States -->
     <script src="states/entity/entity.js"></script>
     <script src="states/entity/default.js"></script>
+    <script src="states/search/search.js"></script>
 
     <!-- Load the app itself last -->
     <script src="app.route.js"></script>

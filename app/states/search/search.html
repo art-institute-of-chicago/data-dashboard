@@ -1,0 +1,66 @@
+<div class="aic-search">
+
+    <!-- Search results table -->
+    <table st-pipe="vm.pipe" st-table="vm.results" class="table table-striped">
+
+        <colgroup>
+            <col width="80"> <!-- Fits 8 digits comfortably -->
+            <col width="100">
+            <col>
+            <col width="45">
+        </colgroup>
+
+        <thead>
+
+            <!-- Search box -->
+            <tr>
+                <th colspan="4" class="aic-search-container">
+                    <input st-search placeholder="Search" class="input-sm form-control" type="search"/>
+                </th>
+            </tr>
+
+            <!-- Column name headers -->
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th colspan="2">Title</th>
+            </tr>
+
+        </thead>
+
+        <!-- Notify when no results -->
+        <tbody ng-show="vm.results.length < 1">
+            <tr ng-repeat="row in vm.results">
+                <td colspan="4">No results found</td>
+            </tr>
+        </tbody>
+
+        <tbody ng-show="vm.results.length > 0">
+            <tr ng-repeat="row in vm.results">
+                <td>
+                    <a href="{{ row.api_link }}">
+                        {{ row.api_id }}
+                    </a>
+                </td>
+                <td>{{ row.api_model }}</td>
+                <td>{{ row.title }}</td>
+                <td>
+                    <button
+                        class="btn btn-sm btn-default"
+                        ui-sref="{{ 'root.entity.' + row.api_model }}({ id: row.api_id })"
+                    ><span class="glyphicon glyphicon-log-in"></span></button>
+                </td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td class="aic-search-pagination" st-pagination="" st-items-by-page="50" colspan="4">
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+
+</div>
+

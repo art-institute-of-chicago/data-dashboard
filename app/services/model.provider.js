@@ -30,7 +30,7 @@
                 // Expect value to be a model name
 
                 // Allow passing $state.current.name
-                var state = value.indexOf('.');
+                var state = value.lastIndexOf('.');
                 if( state ) {
                     value = value.substring( state + 1 );
                 }
@@ -80,7 +80,7 @@
                 label: changeCase.titleCase( item.name ),
                 service: changeCase.pascalCase( item.name ) + 'Service',
                 states: {
-                    entity: 'entity.' + item.name,
+                    entity: 'root.entity.' + item.name,
                 },
                 // model.api will be passed to DataFactory
                 api: {

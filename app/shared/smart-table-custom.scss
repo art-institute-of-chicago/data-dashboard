@@ -1,0 +1,59 @@
+/* SMART TABLE ADJUSTMENTS */
+
+table[st-table] {
+    white-space: nowrap;
+    table-layout:fixed;
+}
+
+table td:not(:last-child) {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+table .btn {
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+table .btn .glyphicon-remove {
+    vertical-align: text-top;
+}
+
+.loader {
+    text-align: center;
+    opacity: 0.2;
+}
+
+th {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.table>thead>tr>th {
+    border-top: 0;
+}
+
+.st-sort-ascent:after{
+    content: '\25B2';
+    color: gray;
+}
+
+.st-sort-descent:after{
+    content: '\25BC';
+    color: gray;
+}
+
+.st-selected td {
+    background-color: #216eff !important;
+    color: white !important;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    vertical-align: initial;
+    padding: 4px 8px;
+}
