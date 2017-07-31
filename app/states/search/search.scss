@@ -4,4 +4,43 @@
         margin-bottom: 30px;
     }
 
+    // Account for the fixed search bar
+    padding-top: 52px;
+
+    // Account for the fixed pagination
+    padding-bottom: 80px;
+
+
+    th.aic-search-container,
+    td.aic-search-pagination {
+
+        position: fixed;
+        left: 0;
+
+        width: $layout-list-width;
+
+        background-color: white;
+        overflow-y: scroll;
+
+        z-index: 2;
+
+    }
+
+
+    th.aic-search-container {
+
+        top: 0;
+        padding: 10px;
+
+    }
+
+    td.aic-search-pagination {
+
+        bottom: 0;
+        padding: 0;
+
+        text-align: center;
+
+    }
+
 }

@@ -10,24 +10,25 @@
             <col width="45">
         </colgroup>
 
-        <!-- Search box -->
         <thead>
-            <tr>
-                <th st-sort="api_id" st-sort-default="true">ID</th>
-                <th st-sort="api_model" st-sort-default="true">Model</th>
-                <th st-sort="title" colspan="2">Title</th>
-            </tr>
-        </thead>
 
-        <!-- Notify when no results -->
-        <thead>
+            <!-- Search box -->
             <tr>
-                <th colspan="4">
+                <th colspan="4" class="aic-search-container">
                     <input st-search placeholder="Search" class="input-sm form-control" type="search"/>
                 </th>
             </tr>
+
+            <!-- Column name headers -->
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th colspan="2">Title</th>
+            </tr>
+
         </thead>
 
+        <!-- Notify when no results -->
         <tbody ng-show="vm.results.length < 1">
             <tr ng-repeat="row in vm.results">
                 <td colspan="4">No results found</td>
@@ -54,7 +55,7 @@
 
         <tfoot>
             <tr>
-                <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4">
+                <td class="aic-search-pagination" st-pagination="" st-items-by-page="50" colspan="4">
                 </td>
             </tr>
         </tfoot>

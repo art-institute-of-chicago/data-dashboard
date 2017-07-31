@@ -4,7 +4,8 @@ $color-text             : #333333;      // Mine Shaft
 
 // Variables for sizing, padding, margins, etc.
 
-$sidebar-width: 150px;
+$layout-list-width: 45%;
+$layout-detail-width: 55%;
 
 // Broad-strokes layout
 body {
@@ -29,12 +30,12 @@ body {
 
 .aic-layout-list {
     left: 0;
-    width: 45%;
+    width: $layout-list-width;
 }
 
 .aic-layout-detail {
-    left: 45%;
-    width: 55%;
+    left: $layout-list-width;
+    width: $layout-detail-width;
 
     padding: 10px;
 }
