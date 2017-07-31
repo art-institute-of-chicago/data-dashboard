@@ -6,11 +6,39 @@ $color-text             : #333333;      // Mine Shaft
 
 $sidebar-width: 150px;
 
+// Broad-strokes layout
 body {
     overflow-x: hidden;
+    overflow-y: hidden;
     color: $color-text;
     padding-top: 1.5em;
 }
+
+.aic-layout-list,
+.aic-layout-detail {
+    position: fixed;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    height: 100%;
+
+    top: 0;
+
+}
+
+.aic-layout-list {
+    left: 0;
+    width: 45%;
+}
+
+.aic-layout-detail {
+    left: 45%;
+    width: 55%;
+
+    padding: 10px;
+}
+
 
 // map.scss is generated using DennisBecker/grunt-sass-globbing
 // You have no control over the order in which @import statements appear

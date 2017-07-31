@@ -44,9 +44,10 @@
                 <td>{{ row.api_model }}</td>
                 <td>{{ row.title }}</td>
                 <td>
-                    <a href="javascript:;" class="btn btn-sm btn-default">
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </a>
+                    <button
+                        class="btn btn-sm btn-default"
+                        ui-sref="{{ 'root.entity.' + row.api_model }}({ id: row.api_id })"
+                    ><span class="glyphicon glyphicon-log-in"></span></button>
                 </td>
             </tr>
         </tbody>

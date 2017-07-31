@@ -23,11 +23,16 @@
 
             // console.log( config );
 
-            if( config.name.match(/^entity\./) ) {
+            if( config.name.match(/^root.entity\./) ) {
 
-                config.templateUrl = config.templateUrl || 'states/entity/default.html';
-                config.controller = config.controller || 'DefaultEntityController';
-                config.controllerAs = 'vm';
+                config.views = config.views || {};
+
+                // Relatively targets the unnamed view in this state's parent state.
+                var view = config.views[''] = config.views[''] || {};
+
+                view.templateUrl = view.templateUrl || 'states/entity/default.html';
+                view.controller = view.controller || 'DefaultEntityController';
+                view.controllerAs = 'vm';
 
             }
 
@@ -37,42 +42,52 @@
 
         // app routes
         $stateConfigProvider
-            .state('root', {
+            .state('redirect', {
                 url: '/',
                 redirectTo: {
-                    state: 'entity.artwork',
+                    state: 'root.entity.artwork',
                     params: { id: null }
                 },
             })
-            // Use as parent state to add topbar
-            .state('entity', {
+            // Use as parent state to split screen b/w search + detail
+            .state('root', {
                 abstract: true,
                 // Omit URL so that it's not prepended to everything
-                templateUrl: 'states/entity/entity.html',
-                controller: 'EntityController',
-                controllerAs: 'vm',
+                views: {
+                    'list@': {
+                        templateUrl: 'states/search/search.html',
+                        controller: 'SearchController',
+                        controllerAs: 'vm',
+                    },
+                },
+
+            })
+            // Use as parent state to add topbar
+            .state('root.entity', {
+                abstract: true,
+                // Omit URL so that it's not prepended to everything
+                views: {
+                    'detail@': {
+                        templateUrl: 'states/entity/entity.html',
+                        controller: 'EntityController',
+                        controllerAs: 'vm',
+                    },
+                },
                 data: {
                     cssClassnames: 'aic-state-entity'
                 }
             })
-            .state('entity.artwork', {
+            .state('root.entity.artwork', {
                 url: '/artworks/:id',
                 params: {
                     model: 'ArtworkService'
                 }
             })
-            .state('entity.agent', {
+            .state('root.entity.agent', {
                 url: '/agents/:id',
                 params: {
                     model: 'AgentService'
                 }
-            })
-            .state('search', {
-                url: '/search',
-                // Note: omit the trailing slash!
-                templateUrl: 'states/search/search.html',
-                controller: 'SearchController',
-                controllerAs: 'vm',
             });
 
     }

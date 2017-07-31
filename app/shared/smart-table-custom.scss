@@ -1,6 +1,6 @@
 /* SMART TABLE ADJUSTMENTS */
 
-table {
+table[st-table] {
     white-space: nowrap;
     table-layout:fixed;
 }
