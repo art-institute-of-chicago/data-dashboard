@@ -4,13 +4,15 @@
         .module('app')
         .controller('SearchController',  Controller);
 
-    Controller.$inject = [];
+    Controller.$inject = ['SearchService'];
 
-    function Controller() {
+    function Controller(SearchService) {
 
         var vm = this;
 
         vm.results = [];
+
+        vm.search = search;
 
         activate();
 
@@ -18,16 +20,18 @@
 
         function activate() {
 
-            // TODO: Replace w/ real data
-            vm.results =[
-                {
-                    id: "collections.agent.12727",
-                    api_id: "12727",
-                    api_model: "agent",
-                    api_link: "http://data-aggregator.dev/api/v1/agents/12727",
-                    title: "Funk, Chadd",
-                }
-            ];
+            // Execute a serach w/ empty query to populate table
+            search();
+
+        }
+
+        function search( query ) {
+
+            SearchService.get( query ).then( function( response ) {
+
+                vm.results = response.data.response.docs;
+
+            });
 
         }
 

@@ -1,27 +1,54 @@
-<table st-table="vm.displayed" st-safe-src="vm.results" class="table table-striped">
-    <colgroup>
-        <col width="80"> <!-- Fits 8 digits comfortably -->
-        <col>
-        <col>
-        <col width="45">
-    </colgroup>
-    <thead>
-        <tr>
-            <th st-sort="api_id" st-sort-default="true">ID</th>
-            <th st-sort="api_model" st-sort-default="true">Model</th>
-            <th st-sort="title" colspan="2">Title</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="row in vm.displayed">
-            <td>{{ row.api_id }}</td>
-            <td>{{ row.api_model }}</td>
-            <td>{{ row.title }}</td>
-            <td>
-                <a href="javascript:;" class="btn btn-sm btn-default">
-                    <span class="glyphicon glyphicon-edit"></span>
-                </a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="aic-search">
+
+    <!-- Search box -->
+    <form class="form-horizontal" name="vm.form.instance" ng-submit="vm.search( vm.form.query )">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search query" ng-model="vm.form.query">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </span>
+        </div>
+    </form>
+
+    <hr/>
+
+    <!-- Notify when no results -->
+    <div ng-show="vm.results.length < 1">
+        <p>No results found</p>
+    </div>
+
+    <!-- Search results table -->
+    <div ng-show="vm.results.length > 0">
+
+        <table st-table="vm.displayed" st-safe-src="vm.results" class="table table-striped">
+            <colgroup>
+                <col width="80"> <!-- Fits 8 digits comfortably -->
+                <col>
+                <col>
+                <col width="45">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th st-sort="api_id" st-sort-default="true">ID</th>
+                    <th st-sort="api_model" st-sort-default="true">Model</th>
+                    <th st-sort="title" colspan="2">Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in vm.displayed">
+                    <td>{{ row.api_id }}</td>
+                    <td>{{ row.api_model }}</td>
+                    <td>{{ row.title }}</td>
+                    <td>
+                        <a href="javascript:;" class="btn btn-sm btn-default">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
