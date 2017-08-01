@@ -43,7 +43,7 @@
 
                 tableState.pagination.start = data.start;
                 tableState.pagination.totalItemCount = data.numFound;
-                tableState.pagination.numberOfPages = Math.ceil( data.numFound / data.start );
+                tableState.pagination.numberOfPages = Math.ceil( data.numFound / tableState.pagination.number );
 
             });
 
