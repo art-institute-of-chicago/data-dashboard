@@ -17,6 +17,9 @@
 
         vm.refresh = refresh;
 
+        vm.getLpmSolrLink = getLpmSolrLink;
+        vm.getFedoraLink = getFedoraLink;
+
         activate();
 
         return vm;
@@ -47,6 +50,27 @@
         function refresh() {
 
             vm.entity = ModelService.detail( vm.entity.id ).cache.clean;
+
+        }
+
+        function getLpmSolrLink( entity ) {
+            return "https://localhost/solr/core/select?wt=json&q=id:" + entity.lake_guid;
+        }
+
+        function getFedoraLink( entity ) {
+
+            var guid = entity.lake_guid;
+
+            if(!guid) {
+                return;
+            }
+
+            return "https://localhost/fcrepo/rest/core"
+                + "/" + guid.substr(0, 2)
+                + "/" + guid.substr(2, 2)
+                + "/" + guid.substr(4, 2)
+                + "/" + guid.substr(6, 2)
+                + "/" + guid;
 
         }
 

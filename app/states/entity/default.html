@@ -10,10 +10,10 @@
 
 <hr/>
 
-<table class="table table-bordered">
+<table class="table table-bordered aic-metadata-table">
 
     <colgroup>
-        <col width="80">
+        <col width="100">
         <col>
     </colgroup>
 
@@ -26,8 +26,18 @@
     <tbody>
 
         <tr class="info">
-            <td><strong>JSON</strong></td>
+            <td><strong>DA API</strong></td>
             <td><a href="{{ vm.route }}">{{ vm.route }}</a></td>
+        </tr>
+
+        <tr class="info">
+            <td><strong>LPM SOLR</strong></td>
+            <td><a href="{{ vm.getLpmSolrLink( vm.entity ) }}">{{ vm.getLpmSolrLink( vm.entity ) }}</a></td>
+        </tr>
+
+        <tr class="info">
+            <td><strong>LPM Fedora</strong></td>
+            <td><a href="{{ vm.getFedoraLink( vm.entity ) }}">{{ vm.getFedoraLink( vm.entity ) }}</a></td>
         </tr>
 
     </tbody>

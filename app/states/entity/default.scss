@@ -1,3 +1,13 @@
 h1 > * {
     vertical-align: middle;
 }
+
+table.aic-metadata-table {
+    table-layout:fixed;
+    white-space: nowrap;
+}
+
+table.aic-metadata-table td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
