@@ -9,9 +9,9 @@
 
     function Service( $http ) {
 
-        // config is optional, defaults to vagrant setup
+        // config is optional, defaults to valet setup
         var settings = {
-            url: "http://localhost:8888/api/2/"
+            url: "http://data-aggregator.dev/api/v1/"
         };
 
         // define public interface
