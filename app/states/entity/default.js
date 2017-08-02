@@ -54,10 +54,20 @@
         }
 
         function getLpmSolrLink( entity ) {
+
+            if(!entity) {
+                return;
+            }
+
             return "https://localhost/solr/core/select?wt=json&q=id:" + entity.lake_guid;
+
         }
 
         function getFedoraLink( entity ) {
+
+            if(!entity) {
+                return;
+            }
 
             var guid = entity.lake_guid;
 
