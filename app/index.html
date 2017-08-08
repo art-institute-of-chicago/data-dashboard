@@ -46,6 +46,10 @@
         <div ui-view="detail" class="aic-layout-detail"></div>
     </div>
 
+    <!-- Config w/ fallback -->
+    <script src="env.js"></script>
+    <script>if(typeof(config) === 'undefined') {document.write('<script src="env.default.js"><\/script>')}</script>
+
     <!-- Bootstrapping -->
     <script src="app.module.js"></script>
 

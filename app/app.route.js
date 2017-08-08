@@ -5,7 +5,6 @@
         .config(routing)
         .config(models)
         .config(rejections)
-        .run(services)
         .run(scroll)
         .run(redirection);
 
@@ -332,18 +331,6 @@
     function rejections( $qProvider ) {
 
         $qProvider.errorOnUnhandledRejections(false);
-
-    }
-
-
-    services.$inject = ['ApiService'];
-
-    function services( ApiService ) {
-
-        // TODO: Load config from file?
-        ApiService.init({
-            url: 'http://data-aggregator.dev/api/v1/',
-        });
 
     }
 

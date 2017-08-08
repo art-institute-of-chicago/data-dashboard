@@ -9,34 +9,20 @@
 
     function Service( $http ) {
 
-        // config is optional, defaults to valet setup
+        // Reads from env.js or env.default.js, defaults to valet setup
         var settings = {
-            url: "http://data-aggregator.dev/api/v1/"
+            url: window.config.API_URL,
         };
+
+        // Add trailing slash to the url, if it's missing
+        settings.url = settings.url.replace(/\/?$/, '/');
 
         // define public interface
         return {
-            init: init,
             get: get,
             error: error,
             route: route,
         };
-
-        function init( config ) {
-
-            // Replace default settings with defined configs
-            if( config !== null && typeof config === 'object' ) {
-
-                Object.keys(settings).forEach( function( key ) {
-                    settings[key] = config[key] || settings[key];
-                })
-
-            }
-
-            // Add trailing slash to the url, if it's missing
-            settings.url = settings.url.replace(/\/?$/, '/');
-
-        }
 
         function get( url, config ) {
 

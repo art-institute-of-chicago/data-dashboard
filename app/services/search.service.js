@@ -10,8 +10,15 @@
     // TODO: Use the API service, somehow?
     function Service( $http, $q, esFactory ) {
 
+        // read settings from env.js or env.default.js
+        var settings = {
+            host: window.config.ES_HOST,
+            index: window.config.ES_INDEX,
+        };
+
+        // create instance of elastic.js client
         var elastic = esFactory({
-            host: "http://localhost:9200/",
+            host: settings.host,
         });
 
         // define public interface
@@ -28,7 +35,7 @@
 
             elastic.search({
 
-                index: 'data_aggregator:v1',
+                index: settings.index,
                 from: params.start,
                 size: params.rows,
                 q: params.query ? null : params.query,
