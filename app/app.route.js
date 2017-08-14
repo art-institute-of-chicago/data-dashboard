@@ -44,7 +44,7 @@
             .state('redirect', {
                 url: '/',
                 redirectTo: {
-                    state: 'root.entity.artwork',
+                    state: 'root.entity.artworks',
                     params: { id: null }
                 },
             })
@@ -76,13 +76,13 @@
                     cssClassnames: 'aic-state-entity'
                 }
             })
-            .state('root.entity.artwork', {
+            .state('root.entity.artworks', {
                 url: '/artworks/:id',
                 params: {
                     model: 'ArtworkService'
                 }
             })
-            .state('root.entity.agent', {
+            .state('root.entity.agents', {
                 url: '/agents/:id',
                 params: {
                     model: 'AgentService'
