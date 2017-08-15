@@ -43,6 +43,7 @@
                 find: find,
                 inject: inject,
                 route: route,
+                settings: settings,
             };
 
 

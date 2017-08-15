@@ -17,6 +17,7 @@
 
         vm.refresh = refresh;
 
+        vm.getCdsLink = getCdsLink;
         vm.getLpmSolrLink = getLpmSolrLink;
         vm.getFedoraLink = getFedoraLink;
 
@@ -50,6 +51,17 @@
         function refresh() {
 
             vm.entity = ModelService.detail( vm.entity.id ).cache.clean;
+
+        }
+
+        // TODO: Account for other data services
+        function getCdsLink( entity ) {
+
+            if(!entity) {
+                return;
+            }
+
+            return window.config.CDS_URL + "/" + ModelService.settings.route + "/" + entity.id;
 
         }
 
