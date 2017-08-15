@@ -13,7 +13,7 @@
 <table class="table table-bordered aic-metadata-table">
 
     <colgroup>
-        <col width="100">
+        <col width="110">
         <col>
     </colgroup>
 
@@ -42,7 +42,12 @@
 
         <tr class="info">
             <td><strong>LPM Fedora</strong></td>
-            <td><a href="{{ vm.getFedoraLink( vm.entity ) }}">{{ vm.getFedoraLink( vm.entity ) }}</a></td>
+            <td><a href="{{ vm.getLpmFedoraLink( vm.entity ) }}">{{ vm.getLpmFedoraLink( vm.entity ) }}</a></td>
+        </tr>
+
+        <tr class="info">
+            <td><strong>LAKE Fedora</strong></td>
+            <td><a href="{{ vm.getLakeFedoraLink( vm.entity ) }}">{{ vm.getLakeFedoraLink( vm.entity ) }}</a></td>
         </tr>
 
     </tbody>

@@ -19,7 +19,8 @@
 
         vm.getCdsLink = getCdsLink;
         vm.getLpmSolrLink = getLpmSolrLink;
-        vm.getFedoraLink = getFedoraLink;
+        vm.getLpmFedoraLink = getLpmFedoraLink;
+        vm.getLakeFedoraLink = getLakeFedoraLink;
 
         activate();
 
@@ -75,7 +76,20 @@
 
         }
 
-        function getFedoraLink( entity ) {
+        function getLpmFedoraLink( entity ) {
+
+            return getFedoraLink( entity, window.config.LPM_FEDORA_URL );
+
+        }
+
+        function getLakeFedoraLink( entity ) {
+
+            return getFedoraLink( entity, window.config.LAKE_FEDORA_URL );
+
+        }
+
+        function getFedoraLink( entity, base_fedora_url ) {
+
 
             if(!entity) {
                 return;
@@ -87,7 +101,7 @@
                 return;
             }
 
-            return window.config.LPM_FEDORA_URL
+            return base_fedora_url
                 + "/" + guid.substr(0, 2)
                 + "/" + guid.substr(2, 2)
                 + "/" + guid.substr(4, 2)
