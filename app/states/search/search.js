@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.results = [];
+        vm.suggestions = [];
 
         vm.pipe = pipe;
 
@@ -37,6 +38,9 @@
             }).then( function( data ) {
 
                 vm.results = data.results;
+
+                // TODO: Combine autocomplete and phrase suggestions?
+                vm.suggestions = data.autocomplete;
 
                 tableState.pagination.start = data.start;
                 tableState.pagination.totalItemCount = data.total;

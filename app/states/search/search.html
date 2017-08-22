@@ -15,7 +15,10 @@
             <!-- Search box -->
             <tr>
                 <th colspan="4" class="aic-search-container">
-                    <input st-search placeholder="Search" class="form-control" type="search"/>
+                    <input st-search placeholder="Search" class="form-control" type="search" list="search-autocomplete"/>
+                    <datalist id="search-autocomplete">
+                        <option ng-repeat="suggestion in vm.suggestions" value="{{ suggestion }}">{{ suggestion }}</option>
+                    </datalist>
                 </th>
             </tr>
 
