@@ -21,6 +21,9 @@
             host: settings.host,
         });
 
+        // determines `preference` for consistent ordering
+        var session = Math.random();
+
         // define public interface
         return {
             get: search,
@@ -39,6 +42,7 @@
                 size: params.rows,
                 q: params.query ? params.query : null,
                 body: params.query ? getElasticBody( params.query ) : null,
+                preference: session,
 
             }).then( function( response ) {
 
