@@ -154,7 +154,7 @@
                     // 'terms',
                     // 'images',
                     'publications',
-                    'tours',
+                    // 'tours',
                 ],
             },
 
