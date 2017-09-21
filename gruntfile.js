@@ -44,5 +44,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['sass_globbing', 'sass', 'watch'] );
+    grunt.registerTask('build', ['sass_globbing', 'sass'] );
 
 };
