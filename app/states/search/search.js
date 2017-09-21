@@ -34,16 +34,13 @@
                 start: tableState.pagination.start,
                 rows: tableState.pagination.number,
 
-            }).then( function( response ) {
+            }).then( function( data ) {
 
-                // Shorten for brevity
-                var data = response.data.response;
-
-                vm.results = data.docs;
+                vm.results = data.results;
 
                 tableState.pagination.start = data.start;
-                tableState.pagination.totalItemCount = data.numFound;
-                tableState.pagination.numberOfPages = Math.ceil( data.numFound / tableState.pagination.number );
+                tableState.pagination.totalItemCount = data.total;
+                tableState.pagination.numberOfPages = Math.ceil( data.total / tableState.pagination.number );
 
             });
 

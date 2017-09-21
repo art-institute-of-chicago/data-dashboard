@@ -59,7 +59,7 @@
                 return;
             }
 
-            return "https://localhost/solr/core/select?wt=json&q=id:" + entity.lake_guid;
+            return window.config.LPM_SOLR_URL + "/select?wt=json&q=id:" + entity.lake_guid;
 
         }
 
@@ -75,7 +75,7 @@
                 return;
             }
 
-            return "https://localhost/fcrepo/rest/core"
+            return window.config.LPM_FEDORA_URL
                 + "/" + guid.substr(0, 2)
                 + "/" + guid.substr(2, 2)
                 + "/" + guid.substr(4, 2)

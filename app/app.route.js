@@ -5,7 +5,6 @@
         .config(routing)
         .config(models)
         .config(rejections)
-        .run(services)
         .run(scroll)
         .run(redirection);
 
@@ -45,7 +44,7 @@
             .state('redirect', {
                 url: '/',
                 redirectTo: {
-                    state: 'root.entity.artwork',
+                    state: 'root.entity.artworks',
                     params: { id: null }
                 },
             })
@@ -77,13 +76,13 @@
                     cssClassnames: 'aic-state-entity'
                 }
             })
-            .state('root.entity.artwork', {
+            .state('root.entity.artworks', {
                 url: '/artworks/:id',
                 params: {
                     model: 'ArtworkService'
                 }
             })
-            .state('root.entity.agent', {
+            .state('root.entity.agents', {
                 url: '/agents/:id',
                 params: {
                     model: 'AgentService'
@@ -332,18 +331,6 @@
     function rejections( $qProvider ) {
 
         $qProvider.errorOnUnhandledRejections(false);
-
-    }
-
-
-    services.$inject = ['ApiService'];
-
-    function services( ApiService ) {
-
-        // TODO: Load config from file?
-        ApiService.init({
-            url: 'http://data-aggregator.dev/api/v1/',
-        });
 
     }
 

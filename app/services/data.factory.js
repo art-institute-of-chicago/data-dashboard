@@ -108,7 +108,7 @@
             // it will update the cache without making a server call
             function inject( datum ) {
 
-                processResponse( datum );
+                datum = processResponse( datum );
 
                 return cache.update( datum );
 
@@ -174,21 +174,24 @@
                 // Unwrap if necessary...
                 data = settings.wrapper ? data[settings.wrapper] || data : data
 
-                // Process includes...
+                // Are we processing a list of datums?
                 if( Array.isArray( data ) ) {
-                    data.map( processDatum );
-                } else {
-                    processDatum( data );
+                    return data.map( processDatum );
                 }
 
-                return response;
+                // Assume we are processing just one datum
+                return processDatum( data );
 
             }
 
 
             function processDatum( datum ) {
 
-                processIncludes( datum );
+                if( settings.include ) {
+
+                    datum = processIncludes( datum );
+
+                }
 
                 // TODO: Add more steps here as required
                 console.log( "Processed " + pluralize(settings.route, 1)
@@ -196,15 +199,11 @@
                     + " (" + datum.title + ")"
                 );
 
+                return datum;
+
             }
 
             function processIncludes( datum ) {
-
-                if( !settings.include ) {
-
-                    return datum;
-
-                }
 
                 settings.include.forEach( function( item ) {
 
@@ -217,6 +216,8 @@
                     }
 
                 });
+
+                return datum;
 
             }
 

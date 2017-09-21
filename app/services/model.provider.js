@@ -35,6 +35,9 @@
                     value = value.substring( state + 1 );
                 }
 
+                // Ensure that the state is singular
+                value = pluralize( value, 1 );
+
                 // TODO: Allow searching by other fields?
 
                 // Unsupported in IE
@@ -80,7 +83,7 @@
                 label: changeCase.titleCase( item.name ),
                 service: changeCase.pascalCase( item.name ) + 'Service',
                 states: {
-                    entity: 'root.entity.' + item.name,
+                    entity: 'root.entity.' + pluralize( item.name ),
                 },
                 // model.api will be passed to DataFactory
                 api: {
