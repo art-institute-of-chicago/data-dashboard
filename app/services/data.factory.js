@@ -127,8 +127,6 @@
 
             function query( url, config ) {
 
-                console.log( 'GET', url, config );
-
                 var promise = ApiService.get( url, config );
 
                 // Update promise to return the transformed response
@@ -193,12 +191,6 @@
                     datum = processIncludes( datum );
 
                 }
-
-                // TODO: Add more steps here as required
-                console.log( "Processed " + pluralize(settings.route, 1)
-                    + " #" + datum.id
-                    + " (" + datum.title + ")"
-                );
 
                 return datum;
 
