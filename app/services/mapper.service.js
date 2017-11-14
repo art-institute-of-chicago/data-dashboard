@@ -26,11 +26,14 @@
 
             var custom = {
                 'citi': 'CITI',
+                'guid': 'GUID',
                 'id': 'ID',
                 'ids': 'IDs',
+                'iiif': 'IIIF',
                 'in': 'in',
+                'lake': 'LAKE',
+                'latlot': 'LatLon',
                 'of': 'of',
-                'source': 'source',
                 'url': 'URL',
                 'urls': 'URLs',
             };
