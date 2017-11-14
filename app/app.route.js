@@ -311,7 +311,25 @@
             'event',
             'tour',
             'tour-stop',
-            'publication',
+
+            {
+                name: 'publication',
+                linked: [
+                    'sections',
+                ],
+            },
+            {
+                name: 'section',
+                linked: [
+                    'publication',
+                    'artwork',
+                    {
+                        label: 'Parent Section',
+                        field: 'parent_id',
+                        model: 'section',
+                    },
+                ],
+            },
 
             {
                 name: 'site',
