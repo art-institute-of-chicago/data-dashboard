@@ -153,7 +153,7 @@
                     // 'committees',
                     // 'terms',
                     // 'images',
-                    'publications',
+                    // 'publications',
                     // 'tours',
                 ],
             },
