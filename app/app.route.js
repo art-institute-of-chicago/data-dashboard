@@ -53,7 +53,9 @@
                 abstract: true,
                 // Omit URL so that it's not prepended to everything
                 views: {
-                    // TODO: Add sidebar template
+                    'sidebar@': {
+                        templateUrl: 'states/sidebar/sidebar.html',
+                    },
                 }
             })
             // Use as parent state to split screen b/w search + detail

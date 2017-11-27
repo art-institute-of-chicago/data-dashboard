@@ -20,11 +20,7 @@ body {
     color: $color-text;
 }
 
-// Root state layout
-.aic-layout-sidebar {
-    width: $layout-sidebar-width;
-}
-
+// Root state layout, see also sidebar.scss
 .aic-layout-main {
     width: $layout-main-width;
 }
