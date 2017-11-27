@@ -1,0 +1,28 @@
+.aic-browse {
+
+    .aic-layout-list,
+    .aic-layout-detail {
+        position: fixed;
+
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        height: 100%;
+
+        top: 0;
+
+    }
+
+    .aic-layout-list {
+        left: 0;
+        width: $layout-list-width;
+    }
+
+    .aic-layout-detail {
+        left: $layout-list-width;
+        width: $layout-detail-width;
+
+        padding: 10px;
+    }
+
+}
