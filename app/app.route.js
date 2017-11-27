@@ -62,7 +62,6 @@
                 views: {
                     'main@': {
                         templateUrl: 'states/browse/browse.html',
-                        controller: function() { },
                     },
                 },
             })
