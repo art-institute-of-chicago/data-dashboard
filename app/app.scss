@@ -4,14 +4,14 @@ $color-text             : #333333;      // Mine Shaft
 
 // Variables for sizing, padding, margins, etc.
 
-$layout-sidebar-width: 5%;
-$layout-main-width: 100% - $layout-sidebar-width;
+$layout-sidebar-width: 40px;
+$layout-main-width: calc( 100% - #{$layout-sidebar-width} );
 
-$layout-list-width: $layout-main-width * 0.45;
-$layout-detail-width: $layout-main-width * 0.55;
+$layout-list-width: calc( #{$layout-main-width} * 0.45 );
+$layout-detail-width: calc( #{$layout-main-width} * 0.55 );
 
 $layout-list-offset: $layout-sidebar-width;
-$layout-detail-offset: $layout-sidebar-width + $layout-list-width;
+$layout-detail-offset: calc( #{$layout-sidebar-width} + #{$layout-list-width} );
 
 // Broad-strokes layout
 body {
