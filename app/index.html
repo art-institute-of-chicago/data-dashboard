@@ -42,8 +42,8 @@
 
     <!-- Everything will be rendered here -->
     <div ng-controller="AppController as vm" class="container-fluid">
-        <div ui-view="list" class="aic-layout-list"></div>
-        <div ui-view="detail" class="aic-layout-detail"></div>
+        <div ui-view="sidebar" class="aic-layout-sidebar"></div>
+        <div ui-view="main" class="aic-layout-main"></div>
     </div>
 
     <!-- Config w/ fallback -->
@@ -72,9 +72,9 @@
     <script src="services/model.provider.js"></script>
 
     <!-- States -->
-    <script src="states/entity/entity.js"></script>
-    <script src="states/entity/default.js"></script>
-    <script src="states/search/search.js"></script>
+    <script src="states/browse/entity/entity.js"></script>
+    <script src="states/browse/entity/default/default.js"></script>
+    <script src="states/browse/search/search.js"></script>
 
     <!-- Load the app itself last -->
     <script src="app.route.js"></script>

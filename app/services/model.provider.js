@@ -83,7 +83,7 @@
                 label: changeCase.titleCase( item.name ),
                 service: changeCase.pascalCase( item.name ) + 'Service',
                 states: {
-                    entity: 'root.entity.' + pluralize( item.name ),
+                    entity: 'root.browse.search.entity.' + pluralize( item.name ),
                 },
                 // model.api will be passed to DataFactory
                 api: {

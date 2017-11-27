@@ -22,14 +22,14 @@
 
             // console.log( config );
 
-            if( config.name.match(/^root.entity\./) ) {
+            if( config.name.match(/^root.browse.search.entity\./) ) {
 
                 config.views = config.views || {};
 
                 // Relatively targets the unnamed view in this state's parent state.
                 var view = config.views[''] = config.views[''] || {};
 
-                view.templateUrl = view.templateUrl || 'states/entity/default.html';
+                view.templateUrl = view.templateUrl || 'states/browse/entity/default/default.html';
                 view.controller = view.controller || 'DefaultEntityController';
                 view.controllerAs = 'vm';
 
@@ -44,30 +44,47 @@
             .state('redirect', {
                 url: '/',
                 redirectTo: {
-                    state: 'root.entity.artworks',
+                    state: 'root.browse.search.entity.artworks',
                     params: { id: null }
                 },
             })
-            // Use as parent state to split screen b/w search + detail
+            // Use as parent state to add sidebar
             .state('root', {
                 abstract: true,
                 // Omit URL so that it's not prepended to everything
                 views: {
-                    'list@': {
-                        templateUrl: 'states/search/search.html',
+                    'sidebar@': {
+                        templateUrl: 'states/sidebar/sidebar.html',
+                    },
+                }
+            })
+            // Use as parent state to split screen b/w search + detail
+            .state('root.browse', {
+                abstract: true,
+                views: {
+                    'main@': {
+                        templateUrl: 'states/browse/browse.html',
+                    },
+                },
+            })
+            // Use as parent state to show search in the left pane
+            .state('root.browse.search', {
+                url: '/search',
+                views: {
+                    'list': {
+                        templateUrl: 'states/browse/search/search.html',
                         controller: 'SearchController',
                         controllerAs: 'vm',
                     },
-                },
-
+                }
             })
             // Use as parent state to add topbar
-            .state('root.entity', {
+            .state('root.browse.search.entity', {
                 abstract: true,
                 // Omit URL so that it's not prepended to everything
                 views: {
-                    'detail@': {
-                        templateUrl: 'states/entity/entity.html',
+                    'detail@root.browse': {
+                        templateUrl: 'states/browse/entity/entity.html',
                         controller: 'EntityController',
                         controllerAs: 'vm',
                     },
@@ -76,13 +93,13 @@
                     cssClassnames: 'aic-state-entity'
                 }
             })
-            .state('root.entity.artworks', {
+            .state('root.browse.search.entity.artworks', {
                 url: '/artworks/:id',
                 params: {
                     model: 'ArtworkService'
                 }
             })
-            .state('root.entity.agents', {
+            .state('root.browse.search.entity.agents', {
                 url: '/agents/:id',
                 params: {
                     model: 'AgentService'
