@@ -22,7 +22,7 @@
 
             // console.log( config );
 
-            if( config.name.match(/^browse.search.entity\./) ) {
+            if( config.name.match(/^root.browse.search.entity\./) ) {
 
                 config.views = config.views || {};
 
@@ -44,13 +44,21 @@
             .state('redirect', {
                 url: '/',
                 redirectTo: {
-                    state: 'browse.search.entity.artworks',
+                    state: 'root.browse.search.entity.artworks',
                     params: { id: null }
                 },
             })
-            .state('browse', {
+            // Use as parent state to add sidebar
+            .state('root', {
                 abstract: true,
                 // Omit URL so that it's not prepended to everything
+                views: {
+                    // TODO: Add sidebar template
+                }
+            })
+            // Use as parent state to split screen b/w search + detail
+            .state('root.browse', {
+                abstract: true,
                 views: {
                     'main@': {
                         templateUrl: 'states/browse/browse.html',
@@ -58,8 +66,8 @@
                     },
                 },
             })
-            // Use as parent state to split screen b/w search + detail
-            .state('browse.search', {
+            // Use as parent state to show search in the left pane
+            .state('root.browse.search', {
                 url: '/search',
                 views: {
                     'list': {
@@ -70,11 +78,11 @@
                 }
             })
             // Use as parent state to add topbar
-            .state('browse.search.entity', {
+            .state('root.browse.search.entity', {
                 abstract: true,
                 // Omit URL so that it's not prepended to everything
                 views: {
-                    'detail@browse': {
+                    'detail@root.browse': {
                         templateUrl: 'states/browse/entity/entity.html',
                         controller: 'EntityController',
                         controllerAs: 'vm',
@@ -84,13 +92,13 @@
                     cssClassnames: 'aic-state-entity'
                 }
             })
-            .state('browse.search.entity.artworks', {
+            .state('root.browse.search.entity.artworks', {
                 url: '/artworks/:id',
                 params: {
                     model: 'ArtworkService'
                 }
             })
-            .state('browse.search.entity.agents', {
+            .state('root.browse.search.entity.agents', {
                 url: '/agents/:id',
                 params: {
                     model: 'AgentService'
