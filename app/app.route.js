@@ -29,7 +29,7 @@
                 // Relatively targets the unnamed view in this state's parent state.
                 var view = config.views[''] = config.views[''] || {};
 
-                view.templateUrl = view.templateUrl || 'states/entity/default.html';
+                view.templateUrl = view.templateUrl || 'states/entity/default/default.html';
                 view.controller = view.controller || 'DefaultEntityController';
                 view.controllerAs = 'vm';
 
