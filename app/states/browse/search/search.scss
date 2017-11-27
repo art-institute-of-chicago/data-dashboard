@@ -15,7 +15,7 @@
     td.aic-search-pagination {
 
         position: fixed;
-        left: 0;
+        left: $layout-list-offset;
 
         width: $layout-list-width;
 

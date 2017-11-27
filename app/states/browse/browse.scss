@@ -14,12 +14,12 @@
     }
 
     .aic-layout-list {
-        left: 0;
+        left: $layout-list-offset;
         width: $layout-list-width;
     }
 
     .aic-layout-detail {
-        left: $layout-list-width;
+        left: $layout-detail-offset;
         width: $layout-detail-width;
 
         padding: 10px;
