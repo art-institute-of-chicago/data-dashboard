@@ -22,7 +22,7 @@
 
             // console.log( config );
 
-            if( config.name.match(/^root.browse.entity\./) ) {
+            if( config.name.match(/^browse.search.entity\./) ) {
 
                 config.views = config.views || {};
 
@@ -44,11 +44,11 @@
             .state('redirect', {
                 url: '/',
                 redirectTo: {
-                    state: 'root.browse.entity.artworks',
+                    state: 'browse.search.entity.artworks',
                     params: { id: null }
                 },
             })
-            .state('root', {
+            .state('browse', {
                 abstract: true,
                 // Omit URL so that it's not prepended to everything
                 views: {
@@ -59,8 +59,8 @@
                 },
             })
             // Use as parent state to split screen b/w search + detail
-            .state('root.browse', {
-                url: '/browse',
+            .state('browse.search', {
+                url: '/search',
                 views: {
                     'list': {
                         templateUrl: 'states/browse/search/search.html',
@@ -70,11 +70,11 @@
                 }
             })
             // Use as parent state to add topbar
-            .state('root.browse.entity', {
+            .state('browse.search.entity', {
                 abstract: true,
                 // Omit URL so that it's not prepended to everything
                 views: {
-                    'detail@root': {
+                    'detail@browse': {
                         templateUrl: 'states/browse/entity/entity.html',
                         controller: 'EntityController',
                         controllerAs: 'vm',
@@ -84,13 +84,13 @@
                     cssClassnames: 'aic-state-entity'
                 }
             })
-            .state('root.browse.entity.artworks', {
+            .state('browse.search.entity.artworks', {
                 url: '/artworks/:id',
                 params: {
                     model: 'ArtworkService'
                 }
             })
-            .state('root.browse.entity.agents', {
+            .state('browse.search.entity.agents', {
                 url: '/agents/:id',
                 params: {
                     model: 'AgentService'
