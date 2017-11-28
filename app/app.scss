@@ -22,7 +22,13 @@ body {
 
 // Root state layout, see also sidebar.scss
 .aic-layout-main {
+
+    position: fixed;
+    left: $layout-sidebar-width;
+
     width: $layout-main-width;
+    height: 100%;
+
 }
 
 // map.scss is generated using DennisBecker/grunt-sass-globbing

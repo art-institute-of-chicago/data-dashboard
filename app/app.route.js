@@ -58,6 +58,17 @@
                     },
                 }
             })
+            // Advanged image search
+            .state('root.images', {
+                url: '/images',
+                views: {
+                    'main@': {
+                        templateUrl: 'states/images/images.html',
+                        controller: 'ImagesAdvancedController',
+                        controllerAs: 'vm',
+                    },
+                }
+            })
             // Use as parent state to split screen b/w search + detail
             .state('root.browse', {
                 abstract: true,
