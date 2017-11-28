@@ -1,6 +1,10 @@
 <div class="aic-images">
 
-    <p>Lorem ipsum.</p>
+    <p>
+        <span>Search by color: </span>
+        <input type="color" ng-model="vm.color" color/>
+        <span>{{ vm.color.hex() }}</span>
+    </p>
 
 </div>
 

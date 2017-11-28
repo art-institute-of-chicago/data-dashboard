@@ -10,6 +10,9 @@
 
         var vm = this;
 
+        // Defaults to AIC's Pentagram color
+        vm.color = color.hsl( 344, 91, 37 );
+
         activate();
 
         return vm;
