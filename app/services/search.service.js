@@ -38,11 +38,11 @@
 
             elastic.search({
 
+                q: params.q || null,
+                body: params.body || ( params.q ? getElasticBody( params.q ) : null ),
+                preference: session,
                 from: params.start,
                 size: params.rows,
-                q: params.query ? params.query : null,
-                body: params.query ? getElasticBody( params.query ) : null,
-                preference: session,
 
             }).then( function( response ) {
 
