@@ -21,6 +21,7 @@ body {
 }
 
 // Root state layout, see also sidebar.scss
+// overflow-y is overwritten in entity.scss
 .aic-layout-main {
 
     position: fixed;
@@ -28,6 +29,8 @@ body {
 
     width: $layout-main-width;
     height: 100%;
+
+    overflow-y: scroll;
 
 }
 
