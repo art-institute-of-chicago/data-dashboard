@@ -4,20 +4,96 @@
         .module('app')
         .controller('ImagesAdvancedController',  Controller);
 
-    Controller.$inject = [];
+    Controller.$inject = ['SearchService'];
 
-    function Controller() {
+    function Controller(SearchService) {
 
         var vm = this;
 
         // Defaults to AIC's Pentagram color
         vm.color = color.hsl( 344, 91, 37 );
 
+        vm.images = [];
+
+        vm.search = search;
+
+        vm.getThumbnail = getThumbnail;
+
         activate();
 
         return vm;
 
         function activate() {
+            search();
+        }
+
+        function search() {
+
+            var hsl = vm.color.hsl().object();
+
+            SearchService.get( {
+
+                body: getQuery( hsl ),
+                start: 0,
+                rows: 24,
+
+            }).then( function( data ) {
+
+                vm.images = data.results;
+
+            });
+
+        }
+
+        function getThumbnail( entity ) {
+
+            if( !entity || !entity.id ) {
+                return;
+            }
+
+            return window.config.IIIF_URL + "/" + entity.id + "/full/!256,256/0/default.jpg";
+
+        }
+
+        function getQuery( color ) {
+
+            var hv = 30;
+            var sv = 40;
+            var lv = 40;
+
+            return {
+                "type": "images",
+                "query": {
+                    "bool": {
+                        "must": [
+                            {
+                                "range": {
+                                    "color.h": {
+                                        "gte": Math.max( color.h - hv/2, 0 ),
+                                        "lte": Math.min( color.h + hv/2, 360 )
+                                    }
+                                }
+                            },
+                            {
+                                "range": {
+                                    "color.s": {
+                                        "gte": Math.max( color.s - sv/2, 0 ),
+                                        "lte": Math.min( color.s + sv/2, 100 )
+                                    }
+                                }
+                            },
+                            {
+                                "range": {
+                                    "color.l": {
+                                        "gte": Math.max( color.l - lv/2, 0 ),
+                                        "lte": Math.min( color.l + lv/2, 100 )
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            };
 
         }
 

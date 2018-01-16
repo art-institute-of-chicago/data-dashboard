@@ -1,3 +1,29 @@
 .aic-images {
 
+    padding: 30px;
+
+    p {
+        margin-bottom: 30px;
+    }
+
+    .image-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .image-item {
+
+        flex-basis: 20%;
+
+        text-align: center;
+        padding: 10px;
+
+        img {
+            width: 100%;
+        }
+
+    }
+
 }

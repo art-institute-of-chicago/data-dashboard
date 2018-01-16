@@ -2,9 +2,17 @@
 
     <p>
         <span>Search by color: </span>
-        <input type="color" ng-model="vm.color" color/>
+        <input type="color" ng-model="vm.color" ng-change="vm.search()" ng-model-options="{ debounce: 200 }" color/>
         <span>{{ vm.color.hex() }}</span>
     </p>
+
+    <div class="image-container">
+
+        <div class="image-item" ng-repeat="image in vm.images">
+            <img src="{{ vm.getThumbnail( image ) }}">
+        </div>
+
+    </div>
 
 </div>
 
