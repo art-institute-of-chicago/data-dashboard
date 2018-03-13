@@ -63,6 +63,9 @@
 
             return {
                 "type": "images",
+                "sort": {
+                    "color.percentage": "desc",
+                },
                 "query": {
                     "bool": {
                         "must": [
