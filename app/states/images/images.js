@@ -18,6 +18,7 @@
         vm.search = search;
 
         vm.getThumbnail = getThumbnail;
+        vm.onImageLoad = onImageLoad;
 
         activate();
 
@@ -63,6 +64,12 @@
 
             return {
                 "type": "images",
+                "fields": [
+                    "id",
+                    "lqip",
+                    "width",
+                    "height",
+                ],
                 "sort": {
                     "color.percentage": "desc",
                 },
@@ -92,11 +99,29 @@
                                         "lte": Math.min( color.l + lv/2, 100 )
                                     }
                                 }
+                            },
+                            // We can't do an exists[field]=lqip, b/c lqip isn't indexed
+                            {
+                                "exists": {
+                                    "field": "width"
+                                }
+                            },
+                            {
+                                "exists": {
+                                    "field": "height"
+                                }
                             }
                         ]
                     }
                 }
             };
+
+        }
+
+        // Directive allows us to pass the event: `img-onload="vm.onImageLoad( $event )"`
+        function onImageLoad( image ) {
+
+            image.is_loaded = true;
 
         }
 

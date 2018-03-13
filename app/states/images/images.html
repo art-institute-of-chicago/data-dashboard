@@ -9,7 +9,19 @@
     <div class="image-container">
 
         <div class="image-item" ng-repeat="image in vm.images">
-            <img src="{{ vm.getThumbnail( image ) }}">
+
+            <div class="image-proportion" style="padding-bottom: {{ image.height / image.width * 100 }}%">
+
+                <div class="image-lqip" style="background-image: url('{{ image.lqip }}')"></div>
+
+                <div class="image-lqip image-lqip-blur" style="background-image: url('{{ image.lqip }}')"></div>
+
+                <div class="image-tn" ng-class="image.is_loaded ? 'image-loaded' : ''">
+                    <img src="{{ vm.getThumbnail( image ) }}" img-onload="vm.onImageLoad( image )"/>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
