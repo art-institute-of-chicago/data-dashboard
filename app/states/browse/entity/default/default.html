@@ -54,6 +54,12 @@
 
 </table>
 
+<div ng-if="vm.entity.image_iiif_url">
+    <a href="{{ vm.entity.image_iiif_url }}/full/!800,800/0/default.jpg" target="_blank">
+        <img src="{{ vm.entity.image_iiif_url }}/full/!256,256/0/default.jpg"/>
+    </a>
+</div>
+
 <hr/>
 
 <table class="table table-bordered table-striped">

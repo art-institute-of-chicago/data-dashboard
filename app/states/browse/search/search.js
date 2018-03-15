@@ -31,7 +31,7 @@
 
             SearchService.get( {
 
-                query: query,
+                q: query,
                 start: tableState.pagination.start,
                 rows: tableState.pagination.number,
 
