@@ -52,7 +52,8 @@
                 return;
             }
 
-            return window.config.IIIF_URL + "/" + entity.id + "/full/!256,256/0/default.jpg";
+            // Old site retrieves 256x256, but the layout is unconstraned vertically
+            return window.config.IIIF_URL + "/" + entity.id + "/full/!256,843/0/default.jpg";
 
         }
 
