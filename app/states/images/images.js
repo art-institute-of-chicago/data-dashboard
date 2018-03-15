@@ -63,7 +63,7 @@
             var lv = 40;
 
             return {
-                "type": "images",
+                "resources": "images",
                 "fields": [
                     "id",
                     "lqip",
