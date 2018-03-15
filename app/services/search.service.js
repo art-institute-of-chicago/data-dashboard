@@ -39,7 +39,7 @@
             elastic.search({
 
                 q: params.q || null,
-                body: params.body || ( params.q ? getElasticBody( params.q ) : null ),
+                // TODO: Add body when we implement filters
                 preference: session,
                 from: params.start,
                 size: params.rows,
@@ -64,50 +64,6 @@
             });
 
             return deferred.promise;
-
-        }
-
-
-        function getElasticBody( query ) {
-
-            return {
-
-                "query": {
-                    "match" : {
-                        "_all": {
-                            "query": query
-                        }
-                    }
-                }
-
-            }
-
-        }
-
-
-        function getQueryInGallery( query ) {
-
-            return {
-
-                "query": {
-                    "bool": {
-                        "must": [
-                            {
-                                "match" : {
-                                    "_all": {
-                                        "query": query
-                                    }
-                                }
-                            }
-                        ],
-                        "filter": {
-                            "term": {
-                                "is_in_gallery": true
-                            }
-                        }
-                    }
-                }
-            }
 
         }
 
