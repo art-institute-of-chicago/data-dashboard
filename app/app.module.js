@@ -10,7 +10,6 @@
         // 3rd party modules
         'ui.router',
         'smart-table',
-        'elasticsearch',
 
     ]);
 

@@ -5,21 +5,10 @@
         .module('app')
         .factory('SearchService', Service);
 
-    Service.$inject = ['$http', '$q', 'esFactory'];
+    Service.$inject = ['$http', '$q', 'ApiService'];
 
     // TODO: Use the API service, somehow?
-    function Service( $http, $q, esFactory ) {
-
-        // read settings from env.js or env.default.js
-        var settings = {
-            host: window.config.SEARCH_HOST,
-            // do not specify an index: we will do so serverside
-        };
-
-        // create instance of elastic.js client
-        var elastic = esFactory({
-            host: settings.host,
-        });
+    function Service( $http, $q, ApiService ) {
 
         // determines `preference` for consistent ordering
         var session = Math.random();
@@ -36,15 +25,21 @@
             // Standardize resolution
             var deferred = $q.defer();
 
-            elastic.search({
+            ApiService.post( 'search', {
 
+                from: params.from || params.start || params.offset || 0,
+                limit: params.limit || params.rows || params.size || null,
+                resources: params.resources || null,
+                preference: params.preference || null,
+                fields: params.fields || null,
+                query: params.query || null,
+                sort: params.sort || null,
                 q: params.q || null,
-                // TODO: Add body when we implement filters
-                preference: session,
-                from: params.start,
-                size: params.rows,
 
             }).then( function( response ) {
+
+                // Unwrap POST response data
+                var response = response.data;
 
                 deferred.resolve( {
 

@@ -32,13 +32,11 @@
 
             var hsl = vm.color.hsl().object();
 
-            SearchService.get( {
+            SearchService.get(
 
-                body: getQuery( hsl ),
-                start: 0,
-                rows: 24,
+                getQuery( hsl )
 
-            }).then( function( data ) {
+            ).then( function( data ) {
 
                 vm.images = data.results;
 
@@ -71,6 +69,8 @@
                     "width",
                     "height",
                 ],
+                "from": 0,
+                "limit": 24,
                 "sort": {
                     "color.percentage": "desc",
                 },

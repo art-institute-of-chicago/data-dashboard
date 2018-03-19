@@ -20,6 +20,7 @@
         // define public interface
         return {
             get: get,
+            post: post,
             error: error,
             route: route,
         };
@@ -29,6 +30,14 @@
             url = getFullUrl( url );
 
             return $http.get( url, config );
+
+        }
+
+        function post( url, config ) {
+
+            url = getFullUrl( url );
+
+            return $http.post( url, config );
 
         }
 
