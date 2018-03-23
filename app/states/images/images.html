@@ -1,10 +1,10 @@
 <div class="aic-images">
 
-    <p>
+    <div class="image-search-bar">
         <span>Search by color: </span>
         <input type="color" ng-model="vm.color" ng-change="vm.search()" ng-model-options="{ debounce: 200 }" color/>
         <span>{{ vm.color.hex() }}</span>
-    </p>
+    </div>
 
     <div class="image-container">
 
@@ -19,6 +19,13 @@
                 <div class="image-tn" ng-class="artwork.is_loaded ? 'image-loaded' : ''">
                     <img src="{{ vm.getThumbnail( artwork ) }}" img-onload="vm.onImageLoad( artwork )"/>
                 </div>
+
+            </div>
+
+            <div class="image-caption">
+
+                <p><strong>{{ artwork.title }}</strong></p>
+                <p>{{ artwork.artist_display }}</p>
 
             </div>
 

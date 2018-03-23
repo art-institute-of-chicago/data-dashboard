@@ -2,7 +2,7 @@
 
     padding: 30px;
 
-    p {
+    .image-search-bar {
         margin-bottom: 30px;
     }
 
@@ -13,11 +13,15 @@
         align-items: center;
     }
 
+    .image-caption {
+        padding: 10px 0;
+    }
+
     .image-item {
 
         flex-basis: 192px;
 
-        text-align: center;
+        text-align: left;
         padding: 10px;
 
     }

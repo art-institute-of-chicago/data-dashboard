@@ -65,10 +65,12 @@
                 "resources": "artworks",
                 "fields": [
                     "id",
+                    "title",
                     "image_id",
                     "thumbnail.lqip",
                     "thumbnail.width",
                     "thumbnail.height",
+                    "artist_display",
                 ],
                 "from": 0,
                 "limit": 24,
