@@ -15,7 +15,12 @@
 
         <div class="image-item" ng-repeat="artwork in vm.artworks">
 
-            <div class="image-proportion" style="padding-bottom: {{ artwork.thumbnail.height / artwork.thumbnail.width * 100 }}%">
+            <div
+                class="image-proportion"
+                style="padding-bottom: {{ ( artwork.thumbnail.height || 1 ) / ( artwork.thumbnail.width || 1 ) * 100 }}%"
+            >
+
+                <div class="image-none"></div>
 
                 <div class="image-lqip" style="background-image: url('{{ artwork.thumbnail.lqip }}')"></div>
 

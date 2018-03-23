@@ -38,6 +38,7 @@
 
     }
 
+    .image-none,
     .image-lqip,
     .image-tn {
 
@@ -47,6 +48,11 @@
 
     }
 
+    .image-none {
+        background-image: url('shared/image-not-available.svg');
+    }
+
+    .image-none,
     .image-lqip {
 
         width: 100%;
