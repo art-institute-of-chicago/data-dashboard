@@ -13,7 +13,7 @@
         // Defaults to AIC's Pentagram color
         vm.color = color.hsl( 344, 91, 37 );
 
-        vm.images = [];
+        vm.artworks = [];
 
         vm.search = search;
 
@@ -38,20 +38,20 @@
 
             ).then( function( data ) {
 
-                vm.images = data.results;
+                vm.artworks = data.results;
 
             });
 
         }
 
-        function getThumbnail( entity ) {
+        function getThumbnail( artwork ) {
 
-            if( !entity || !entity.id ) {
+            if( !artwork || !artwork.image_id ) {
                 return;
             }
 
             // Old site retrieves 256x256, but the layout is unconstraned vertically
-            return window.config.IIIF_URL + "/" + entity.id + "/full/!256,843/0/default.jpg";
+            return window.config.IIIF_URL + "/" + artwork.image_id + "/full/!256,843/0/default.jpg";
 
         }
 
@@ -62,12 +62,13 @@
             var lv = 40;
 
             return {
-                "resources": "images",
+                "resources": "artworks",
                 "fields": [
                     "id",
-                    "lqip",
-                    "width",
-                    "height",
+                    "image_id",
+                    "thumbnail.lqip",
+                    "thumbnail.width",
+                    "thumbnail.height",
                 ],
                 "from": 0,
                 "limit": 24,
@@ -104,12 +105,12 @@
                             // We can't do an exists[field]=lqip, b/c lqip isn't indexed
                             {
                                 "exists": {
-                                    "field": "width"
+                                    "field": "thumbnail.width"
                                 }
                             },
                             {
                                 "exists": {
-                                    "field": "height"
+                                    "field": "thumbnail.height"
                                 }
                             }
                         ]
