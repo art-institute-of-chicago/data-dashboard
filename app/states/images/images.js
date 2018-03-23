@@ -14,6 +14,8 @@
         vm.color = color.hsl( 344, 91, 37 );
         vm.text = null;
 
+        vm.filter_on_view = false;
+
         vm.artworks = [];
 
         vm.searchColor = searchColor;
@@ -48,7 +50,6 @@
         }
 
         function search( query ) {
-
 
             SearchService.get( query ).then( function( data ) {
 
@@ -97,7 +98,28 @@
 
         function getTextQuery( text ) {
 
-            return lodash.mergewith( getBaseQuery(), { "q": text }, customizer );
+            var query = { "q": text };
+
+            if( vm.filter_on_view ) {
+
+                // TODO: Abstract lodash.mergewith into separate function
+                query = lodash.mergewith( query, {
+                    "query": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "term": {
+                                        "is_on_view": vm.filter_on_view
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }, customizer );
+
+            }
+
+            return lodash.mergewith( getBaseQuery(), query, customizer );
 
         }
 
