@@ -12,10 +12,12 @@
 
         // Defaults to AIC's Pentagram color
         vm.color = color.hsl( 344, 91, 37 );
+        vm.text = null;
 
         vm.artworks = [];
 
         vm.searchColor = searchColor;
+        vm.searchText = searchText;
 
         vm.getThumbnail = getThumbnail;
         vm.onImageLoad = onImageLoad;
@@ -37,6 +39,13 @@
 
         }
 
+        function searchText() {
+
+            var query = getTextQuery( vm.text );
+
+            search( query );
+
+        }
 
         function search( query ) {
 
@@ -86,6 +95,11 @@
 
         }
 
+        function getTextQuery( text ) {
+
+            return lodash.mergewith( getBaseQuery(), { "q": text }, customizer );
+
+        }
 
         function getColorQuery( color ) {
 
