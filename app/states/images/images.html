@@ -2,7 +2,7 @@
 
     <div class="image-search-bar">
         <span>Search by color: </span>
-        <input type="color" ng-model="vm.color" ng-change="vm.search()" ng-model-options="{ debounce: 200 }" color/>
+        <input type="color" ng-model="vm.color" ng-change="vm.searchColor()" ng-model-options="{ debounce: 200 }" color/>
         <span>{{ vm.color.hex() }}</span>
     </div>
 

@@ -15,7 +15,7 @@
 
         vm.artworks = [];
 
-        vm.search = search;
+        vm.searchColor = searchColor;
 
         vm.getThumbnail = getThumbnail;
         vm.onImageLoad = onImageLoad;
@@ -25,18 +25,23 @@
         return vm;
 
         function activate() {
-            search();
+            searchColor();
         }
 
-        function search() {
+        function searchColor() {
 
             var hsl = vm.color.hsl().object();
+            var query = getColorQuery( hsl );
 
-            SearchService.get(
+            search( query );
 
-                getQuery( hsl )
+        }
 
-            ).then( function( data ) {
+
+        function search( query ) {
+
+
+            SearchService.get( query ).then( function( data ) {
 
                 vm.artworks = data.results;
 
@@ -55,11 +60,7 @@
 
         }
 
-        function getQuery( color ) {
-
-            var hv = 30;
-            var sv = 40;
-            var lv = 40;
+        function getBaseQuery( ) {
 
             return {
                 "resources": "artworks",
@@ -74,6 +75,25 @@
                 ],
                 "from": 0,
                 "limit": 24,
+                "query": {
+                    "bool": {
+                        "must": [
+                            // TODO: Move `exists` here?
+                        ]
+                    }
+                }
+            };
+
+        }
+
+
+        function getColorQuery( color ) {
+
+            var hv = 30;
+            var sv = 40;
+            var lv = 40;
+
+            var query = {
                 "sort": {
                     "color.percentage": "desc",
                 },
@@ -120,12 +140,26 @@
                 }
             };
 
+            return lodash.mergewith( getBaseQuery(), query, customizer );
+
         }
 
         // Directive allows us to pass the event: `img-onload="vm.onImageLoad( $event )"`
         function onImageLoad( image ) {
 
             image.is_loaded = true;
+
+        }
+
+        // https://lodash.com/docs/4.17.5#mergeWith
+        function customizer(objValue, srcValue) {
+
+            // https://stackoverflow.com/a/4775741/1943591
+            if ( objValue instanceof Array ) {
+
+                return objValue.concat(srcValue);
+
+            }
 
         }
 
