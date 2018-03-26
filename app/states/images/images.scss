@@ -38,11 +38,11 @@
 
     }
 
-    .image-boosted-indicator {
+    .image-indicator {
 
         position: absolute;
-        top: 0;
         right: 0;
+        top: 0;
 
         z-index: 2;
 
@@ -56,11 +56,22 @@
             width: 20px;
             height: 20px;
 
-            background-image: url('shared/icon-chevron.svg');
+            // Set `background-image` in 'child' classes
             background-repeat: no-repeat;
             background-position: center center;
             background-size: 80% 80%;
 
+        }
+
+    }
+
+    .image-indicator-boosted {
+
+        top: 20px;
+
+        &::after {
+
+            background-image: url('shared/icon-chevron.svg');
             filter: invert(0.5) sepia(1) saturate(10) hue-rotate(5deg);
 
         }
