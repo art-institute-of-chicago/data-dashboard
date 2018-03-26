@@ -38,6 +38,35 @@
 
     }
 
+    .image-boosted-indicator {
+
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        z-index: 2;
+
+        background-color: rgba( 0, 0, 0, 0.75 );
+
+        &::after {
+
+            content: '';
+            display: block;
+
+            width: 20px;
+            height: 20px;
+
+            background-image: url('shared/icon-chevron.svg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 80% 80%;
+
+            filter: invert(0.5) sepia(1) saturate(10) hue-rotate(5deg);
+
+        }
+
+    }
+
     .image-none,
     .image-lqip,
     .image-tn {

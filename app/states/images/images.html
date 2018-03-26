@@ -34,6 +34,8 @@
                     <img src="{{ vm.getThumbnail( artwork ) }}" img-onload="vm.onImageLoad( artwork )"/>
                 </div>
 
+                <div class="image-boosted-indicator" ng-if="artwork.is_boosted"></div>
+
             </div>
 
             <div class="image-caption">

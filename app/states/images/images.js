@@ -78,6 +78,7 @@
                     "id",
                     "title",
                     "image_id",
+                    "is_boosted",
                     "thumbnail.lqip",
                     "thumbnail.width",
                     "thumbnail.height",
