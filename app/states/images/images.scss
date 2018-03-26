@@ -65,6 +65,19 @@
 
     }
 
+    .image-indicator-on-view {
+
+        top: 0px;
+
+        &::after {
+
+            background-image: url('shared/icon-eye.svg');
+            filter: invert(0.5) sepia(1) saturate(10) hue-rotate(40deg);
+
+        }
+
+    }
+
     .image-indicator-boosted {
 
         top: 20px;
