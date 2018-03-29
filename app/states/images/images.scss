@@ -2,7 +2,7 @@
 
     padding: 30px;
 
-    p {
+    .image-search-bar {
         margin-bottom: 30px;
     }
 
@@ -13,11 +13,15 @@
         align-items: center;
     }
 
+    .image-caption {
+        padding: 10px 0;
+    }
+
     .image-item {
 
         flex-basis: 192px;
 
-        text-align: center;
+        text-align: left;
         padding: 10px;
 
     }
@@ -34,6 +38,60 @@
 
     }
 
+    .image-indicator {
+
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        z-index: 2;
+
+        background-color: rgba( 0, 0, 0, 0.75 );
+
+        &::after {
+
+            content: '';
+            display: block;
+
+            width: 20px;
+            height: 20px;
+
+            // Set `background-image` in 'child' classes
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 80% 80%;
+
+        }
+
+    }
+
+    .image-indicator-on-view {
+
+        top: 0px;
+
+        &::after {
+
+            background-image: url('shared/icon-eye.svg');
+            filter: invert(0.5) sepia(1) saturate(10) hue-rotate(40deg);
+
+        }
+
+    }
+
+    .image-indicator-boosted {
+
+        top: 20px;
+
+        &::after {
+
+            background-image: url('shared/icon-chevron.svg');
+            filter: invert(0.5) sepia(1) saturate(10) hue-rotate(5deg);
+
+        }
+
+    }
+
+    .image-none,
     .image-lqip,
     .image-tn {
 
@@ -43,6 +101,11 @@
 
     }
 
+    .image-none {
+        background-image: url('shared/image-not-available.svg');
+    }
+
+    .image-none,
     .image-lqip {
 
         width: 100%;

@@ -1,24 +1,53 @@
 <div class="aic-images">
 
-    <p>
+    <div class="image-search-bar">
         <span>Search by color: </span>
-        <input type="color" ng-model="vm.color" ng-change="vm.search()" ng-model-options="{ debounce: 200 }" color/>
+        <input type="color" ng-model="vm.color" ng-change="vm.searchColor()" ng-model-options="{ debounce: 200 }" color/>
         <span>{{ vm.color.hex() }}</span>
-    </p>
+    </div>
+
+    <div class="image-search-bar">
+        <span>Search by text: </span>
+        <input type="text" ng-model="vm.text" ng-change="vm.searchText()" ng-model-options="{ debounce: 200 }"/>
+        <label>
+            <input type="checkbox" ng-model="vm.filter_on_view" ng-change="vm.searchText()"/>
+            On view only
+        </label>
+    </div>
 
     <div class="image-container">
 
-        <div class="image-item" ng-repeat="image in vm.images">
+        <div class="image-item" ng-repeat="artwork in vm.artworks">
 
-            <div class="image-proportion" style="padding-bottom: {{ image.height / image.width * 100 }}%">
+            <div
+                class="image-proportion"
+                style="padding-bottom: {{ ( artwork.thumbnail.height || 1 ) / ( artwork.thumbnail.width || 1 ) * 100 }}%"
+            >
 
-                <div class="image-lqip" style="background-image: url('{{ image.lqip }}')"></div>
+                <div class="image-none"></div>
 
-                <div class="image-lqip image-lqip-blur" style="background-image: url('{{ image.lqip }}')"></div>
+                <div class="image-lqip" style="background-image: url('{{ artwork.thumbnail.lqip }}')"></div>
 
-                <div class="image-tn" ng-class="image.is_loaded ? 'image-loaded' : ''">
-                    <img src="{{ vm.getThumbnail( image ) }}" img-onload="vm.onImageLoad( image )"/>
+                <div class="image-lqip image-lqip-blur" style="background-image: url('{{ artwork.thumbnail.lqip }}')"></div>
+
+                <div class="image-tn" ng-class="artwork.is_loaded ? 'image-loaded' : ''">
+                    <img src="{{ vm.getThumbnail( artwork ) }}" img-onload="vm.onImageLoad( artwork )"/>
                 </div>
+
+                <div class="image-indicator image-indicator-boosted" ng-if="artwork.is_boosted"></div>
+
+                <div class="image-indicator image-indicator-on-view" ng-if="artwork.is_on_view"></div>
+
+            </div>
+
+            <div class="image-caption">
+
+                <p>
+                    <a href="http://www.artic.edu/aic/collections/artwork/{{ artwork.id }}" target="_blank">
+                        <strong>{{ artwork.title }}</strong>
+                    </a>
+                </p>
+                <p>{{ artwork.artist_display }}</p>
 
             </div>
 

@@ -12,10 +12,14 @@
 
         // Defaults to AIC's Pentagram color
         vm.color = color.hsl( 344, 91, 37 );
+        vm.text = "monet";
 
-        vm.images = [];
+        vm.filter_on_view = false;
 
-        vm.search = search;
+        vm.artworks = [];
+
+        vm.searchColor = searchColor;
+        vm.searchText = searchText;
 
         vm.getThumbnail = getThumbnail;
         vm.onImageLoad = onImageLoad;
@@ -25,52 +29,115 @@
         return vm;
 
         function activate() {
-            search();
+
+            searchText();
+
         }
 
-        function search() {
+        function searchColor( color ) {
 
-            var hsl = vm.color.hsl().object();
+            var color = vm.color = color || vm.color;
 
-            SearchService.get(
+            var hsl = color.hsl().object();
+            var query = getColorQuery( hsl );
 
-                getQuery( hsl )
+            search( query );
 
-            ).then( function( data ) {
+        }
 
-                vm.images = data.results;
+        function searchText( text ) {
+
+            var text = vm.text = text || vm.text;
+
+            var query = getTextQuery( text );
+
+            search( query );
+
+        }
+
+        function search( query ) {
+
+            SearchService.get( query ).then( function( data ) {
+
+                vm.artworks = data.results;
 
             });
 
         }
 
-        function getThumbnail( entity ) {
+        function getThumbnail( artwork ) {
 
-            if( !entity || !entity.id ) {
+            if( !artwork || !artwork.image_id ) {
                 return;
             }
 
             // Old site retrieves 256x256, but the layout is unconstraned vertically
-            return window.config.IIIF_URL + "/" + entity.id + "/full/!256,843/0/default.jpg";
+            return window.config.IIIF_URL + "/" + artwork.image_id + "/full/!256,843/0/default.jpg";
 
         }
 
-        function getQuery( color ) {
+        function getBaseQuery( ) {
+
+            return {
+                "resources": "artworks",
+                "fields": [
+                    "id",
+                    "title",
+                    "image_id",
+                    "is_boosted",
+                    "is_on_view",
+                    "thumbnail.lqip",
+                    "thumbnail.width",
+                    "thumbnail.height",
+                    "artist_display",
+                ],
+                "from": 0,
+                "limit": 24,
+                "query": {
+                    "bool": {
+                        "must": [
+                            // TODO: Move `exists` here?
+                        ]
+                    }
+                }
+            };
+
+        }
+
+        function getTextQuery( text ) {
+
+            var query = { "q": text };
+
+            if( vm.filter_on_view ) {
+
+                // TODO: Abstract lodash.mergewith into separate function
+                query = lodash.mergewith( query, {
+                    "query": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "term": {
+                                        "is_on_view": vm.filter_on_view
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }, customizer );
+
+            }
+
+            return lodash.mergewith( getBaseQuery(), query, customizer );
+
+        }
+
+        function getColorQuery( color ) {
 
             var hv = 30;
             var sv = 40;
             var lv = 40;
 
-            return {
-                "resources": "images",
-                "fields": [
-                    "id",
-                    "lqip",
-                    "width",
-                    "height",
-                ],
-                "from": 0,
-                "limit": 24,
+            var query = {
                 "sort": {
                     "color.percentage": "desc",
                 },
@@ -104,12 +171,12 @@
                             // We can't do an exists[field]=lqip, b/c lqip isn't indexed
                             {
                                 "exists": {
-                                    "field": "width"
+                                    "field": "thumbnail.width"
                                 }
                             },
                             {
                                 "exists": {
-                                    "field": "height"
+                                    "field": "thumbnail.height"
                                 }
                             }
                         ]
@@ -117,12 +184,26 @@
                 }
             };
 
+            return lodash.mergewith( getBaseQuery(), query, customizer );
+
         }
 
         // Directive allows us to pass the event: `img-onload="vm.onImageLoad( $event )"`
         function onImageLoad( image ) {
 
             image.is_loaded = true;
+
+        }
+
+        // https://lodash.com/docs/4.17.5#mergeWith
+        function customizer(objValue, srcValue) {
+
+            // https://stackoverflow.com/a/4775741/1943591
+            if ( objValue instanceof Array ) {
+
+                return objValue.concat(srcValue);
+
+            }
 
         }
 
