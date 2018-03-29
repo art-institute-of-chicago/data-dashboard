@@ -12,7 +12,7 @@
 
         // Defaults to AIC's Pentagram color
         vm.color = color.hsl( 344, 91, 37 );
-        vm.text = null;
+        vm.text = "monet";
 
         vm.filter_on_view = false;
 
@@ -29,21 +29,27 @@
         return vm;
 
         function activate() {
-            searchColor();
+
+            searchText();
+
         }
 
-        function searchColor() {
+        function searchColor( color ) {
 
-            var hsl = vm.color.hsl().object();
+            var color = vm.color = color || vm.color;
+
+            var hsl = color.hsl().object();
             var query = getColorQuery( hsl );
 
             search( query );
 
         }
 
-        function searchText() {
+        function searchText( text ) {
 
-            var query = getTextQuery( vm.text );
+            var text = vm.text = text || vm.text;
+
+            var query = getTextQuery( text );
 
             search( query );
 
