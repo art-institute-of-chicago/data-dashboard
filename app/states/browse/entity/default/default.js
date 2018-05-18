@@ -13,10 +13,10 @@
         var vm = this;
 
         vm.entity = null;
-        vm.route = null;
 
         vm.refresh = refresh;
 
+        vm.getDaApiLink = getDaApiLink;
         vm.getCdsLink = getCdsLink;
         vm.getLpmSolrLink = getLpmSolrLink;
         vm.getLpmFedoraLink = getLpmFedoraLink;
@@ -36,14 +36,12 @@
                 request.promise.then( function( response ) {
 
                     vm.entity = ModelService.find( response.data.data[0].id ).clean;
-                    vm.route = ModelService.route( vm.entity.id );
 
                 });
 
             } else {
 
                 vm.entity = ModelService.find( $stateParams.id ).clean;
-                vm.route = ModelService.route( $stateParams.id );
 
             }
 
@@ -62,7 +60,16 @@
             }
 
             vm.entity = ModelService.detail( vm.entity.id ).cache.clean;
-            vm.route = ModelService.route( vm.entity.id );
+
+        }
+
+        function getDaApiLink( entity ) {
+
+            if(!entity) {
+                return;
+            }
+
+            return ModelService.route( entity.id );
 
         }
 
