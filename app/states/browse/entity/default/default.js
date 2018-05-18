@@ -56,7 +56,7 @@
 
         function refresh() {
 
-            if( !vm.entity.id )
+            if( !vm.entity || !vm.entity.id )
             {
                 return;
             }
