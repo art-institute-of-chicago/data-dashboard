@@ -16,6 +16,7 @@
 
         vm.refresh = refresh;
 
+        vm.getDaSearchLink = getDaSearchLink;
         vm.getDaApiLink = getDaApiLink;
         vm.getCdsLink = getCdsLink;
         vm.getLpmSolrLink = getLpmSolrLink;
@@ -60,6 +61,16 @@
             }
 
             vm.entity = ModelService.detail( vm.entity.id ).cache.clean;
+
+        }
+
+        function getDaSearchLink( entity ) {
+
+            if(!entity) {
+                return;
+            }
+
+            return ModelService.route() + '/search?fields=true&query[term][id]=' + entity.id;
 
         }
 

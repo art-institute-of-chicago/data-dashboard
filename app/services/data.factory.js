@@ -140,9 +140,16 @@
             }
 
 
+            // Omit id to get the base url to this resource
             function getUrl( id ) {
 
-                var url = [ settings.route, id ];
+                var url = [ settings.route ];
+
+                if( typeof id !== 'undefined' ) {
+
+                    url.push( id );
+
+                }
 
                 return url.join('/');
 

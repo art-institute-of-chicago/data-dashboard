@@ -137,6 +137,9 @@
         // enforce certain url rules, for ease of use
         function getFullUrl( url ) {
 
+            // cast to string if necessary
+            url = typeof url === 'number' ? url.toString() : url;
+
             // remove leading slash, if it's present
             url = url.replace(/^\//g, '');
 
