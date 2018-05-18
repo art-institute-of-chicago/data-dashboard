@@ -51,7 +51,13 @@
 
         function refresh() {
 
+            if( !vm.entity.id )
+            {
+                return;
+            }
+
             vm.entity = ModelService.detail( vm.entity.id ).cache.clean;
+            vm.route = ModelService.route( vm.entity.id );
 
         }
 
