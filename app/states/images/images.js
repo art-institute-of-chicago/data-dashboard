@@ -4,9 +4,9 @@
         .module('app')
         .controller('ImagesAdvancedController',  Controller);
 
-    Controller.$inject = ['SearchService'];
+    Controller.$inject = ['$rootScope', 'SearchService'];
 
-    function Controller(SearchService) {
+    function Controller($rootScope, SearchService) {
 
         var vm = this;
 
@@ -24,6 +24,8 @@
         vm.getThumbnail = getThumbnail;
         vm.onImageLoad = onImageLoad;
 
+        vm.query = null;
+
         activate();
 
         return vm;
@@ -31,6 +33,10 @@
         function activate() {
 
             searchText();
+
+            $rootScope.$on('envChanged', function() {
+                search();
+            });
 
         }
 
@@ -57,6 +63,16 @@
 
         function search( query ) {
 
+            // If there's no query, and no saved query, ignore
+            if( !query && !vm.query )
+            {
+                return;
+            }
+
+            // Save the last query for env-switching
+            vm.query = query = query || vm.query;
+
+            // Run the query and update artworks with results
             SearchService.get( query ).then( function( data ) {
 
                 vm.artworks = data.results;

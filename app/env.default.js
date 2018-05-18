@@ -1,5 +1,7 @@
 window.config = {
-    API_URL: 'http://data-aggregator.dev/api/v1/',
+    API_URLS: {
+        local: 'http://data-aggregator.test/api/v1/',
+    },
     CDS_URL: 'http://localhost:9393/v1',
     IIIF_URL: 'https://localhost/iiif/2',
     LPM_SOLR_URL: 'https://localhost/solr/core',
