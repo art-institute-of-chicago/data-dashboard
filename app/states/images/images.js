@@ -24,6 +24,8 @@
         vm.getThumbnail = getThumbnail;
         vm.onImageLoad = onImageLoad;
 
+        vm.query = null;
+
         activate();
 
         return vm;
@@ -57,6 +59,16 @@
 
         function search( query ) {
 
+            // If there's no query, and no saved query, ignore
+            if( !query && !vm.query )
+            {
+                return;
+            }
+
+            // Save the last query for env-switching
+            vm.query = query = query || vm.query;
+
+            // Run the query and update artworks with results
             SearchService.get( query ).then( function( data ) {
 
                 vm.artworks = data.results;
