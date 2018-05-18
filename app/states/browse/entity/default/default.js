@@ -4,9 +4,9 @@
         .module('app')
         .controller('DefaultEntityController',  Controller);
 
-    Controller.$inject = ['$stateParams', '$injector'];
+    Controller.$inject = ['$rootScope', '$stateParams', '$injector'];
 
-    function Controller( $stateParams, $injector ) {
+    function Controller( $rootScope, $stateParams, $injector ) {
 
         var ModelService = $injector.get( $stateParams.model );
 
@@ -46,6 +46,11 @@
                 vm.route = ModelService.route( $stateParams.id );
 
             }
+
+            // Refresh the view when the env changes
+            $rootScope.$on('envChanged', function() {
+                refresh();
+            });
 
         }
 

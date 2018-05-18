@@ -4,9 +4,9 @@
         .module('app')
         .controller('ImagesAdvancedController',  Controller);
 
-    Controller.$inject = ['SearchService'];
+    Controller.$inject = ['$rootScope', 'SearchService'];
 
-    function Controller(SearchService) {
+    function Controller($rootScope, SearchService) {
 
         var vm = this;
 
@@ -33,6 +33,10 @@
         function activate() {
 
             searchText();
+
+            $rootScope.$on('envChanged', function() {
+                search();
+            });
 
         }
 

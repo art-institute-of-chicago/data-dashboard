@@ -4,9 +4,9 @@
         .module('app')
         .controller('SearchController',  Controller);
 
-    Controller.$inject = ['SearchService'];
+    Controller.$inject = ['$scope', '$rootScope', 'SearchService'];
 
-    function Controller(SearchService) {
+    function Controller($scope, $rootScope, SearchService) {
 
         var vm = this;
 
@@ -22,6 +22,11 @@
         function activate() {
 
             // pipe will be triggered automatically on page load
+
+            // Refresh the table when the env changes
+            $rootScope.$on('envChanged', function() {
+                $scope.$broadcast('refreshTable');
+            });
 
         }
 
