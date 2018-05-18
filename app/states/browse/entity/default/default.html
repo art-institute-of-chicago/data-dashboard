@@ -61,7 +61,7 @@
 
 <div ng-if="vm.entity.thumbnail.url">
     <a href="{{ vm.entity.thumbnail.url }}/full/!800,800/0/default.jpg" target="_blank">
-        <img src="{{ vm.entity.thumbnail.url }}/full/!256,256/0/default.jpg"/>
+        <img ng-src="{{ vm.entity.thumbnail.url }}/full/!256,256/0/default.jpg"/>
     </a>
 </div>
 
