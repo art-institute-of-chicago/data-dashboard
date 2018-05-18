@@ -80,8 +80,6 @@
         {
             var env = $window.localStorage.getItem('env');
 
-            console.log( env );
-
             return setEnv( env );
 
         }
@@ -96,8 +94,6 @@
         }
 
         function setEnv( env ) {
-
-            console.log( env );
 
             // Use the helper function for fallback logic
             settings.url = getEnvFromEnvs( env );
