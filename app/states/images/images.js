@@ -154,45 +154,57 @@
             var lv = 40;
 
             var query = {
-                "sort": {
-                    "color.percentage": "desc",
-                },
                 "query": {
                     "bool": {
                         "must": [
                             {
-                                "range": {
-                                    "color.h": {
-                                        "gte": Math.max( color.h - hv/2, 0 ),
-                                        "lte": Math.min( color.h + hv/2, 360 )
+                                "function_score": {
+                                    "query": {
+                                        "bool": {
+                                            "must": [
+                                                {
+                                                    "range": {
+                                                        "color.h": {
+                                                            "gte": Math.max( color.h - hv/2, 0 ),
+                                                            "lte": Math.min( color.h + hv/2, 360 )
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "range": {
+                                                        "color.s": {
+                                                            "gte": Math.max( color.s - sv/2, 0 ),
+                                                            "lte": Math.min( color.s + sv/2, 100 )
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "range": {
+                                                        "color.l": {
+                                                            "gte": Math.max( color.l - lv/2, 0 ),
+                                                            "lte": Math.min( color.l + lv/2, 100 )
+                                                        }
+                                                    }
+                                                },
+                                                // We can't do an exists[field]=lqip, b/c lqip isn't indexed
+                                                {
+                                                    "exists": {
+                                                        "field": "thumbnail.width"
+                                                    }
+                                                },
+                                                {
+                                                    "exists": {
+                                                        "field": "thumbnail.height"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "field_value_factor": {
+                                        "field": "color.percentage",
+                                        "modifier": "ln1p",
+                                        "missing": 1
                                     }
-                                }
-                            },
-                            {
-                                "range": {
-                                    "color.s": {
-                                        "gte": Math.max( color.s - sv/2, 0 ),
-                                        "lte": Math.min( color.s + sv/2, 100 )
-                                    }
-                                }
-                            },
-                            {
-                                "range": {
-                                    "color.l": {
-                                        "gte": Math.max( color.l - lv/2, 0 ),
-                                        "lte": Math.min( color.l + lv/2, 100 )
-                                    }
-                                }
-                            },
-                            // We can't do an exists[field]=lqip, b/c lqip isn't indexed
-                            {
-                                "exists": {
-                                    "field": "thumbnail.width"
-                                }
-                            },
-                            {
-                                "exists": {
-                                    "field": "thumbnail.height"
                                 }
                             }
                         ]

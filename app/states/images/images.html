@@ -5,7 +5,7 @@
         <input type="color" ng-model="vm.color" ng-change="vm.searchColor()" ng-model-options="{ debounce: 200 }" color/>
         <span>{{ vm.color.hex() }}</span>
     </div>
-
+<!--
     <div class="image-search-bar">
         <span>Search by text: </span>
         <input type="text" ng-model="vm.text" ng-change="vm.searchText()" ng-model-options="{ debounce: 200 }"/>
@@ -14,7 +14,7 @@
             On view only
         </label>
     </div>
-
+ -->
     <div class="image-container">
 
         <div class="image-item" ng-repeat="artwork in vm.artworks">
