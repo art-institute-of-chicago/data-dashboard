@@ -12,7 +12,7 @@
 
         // Defaults to AIC's Pentagram color
         vm.color = color.hsl( 344, 91, 37 );
-        vm.text = "monet";
+        vm.text = "cat";
 
         vm.filter_on_view = false;
 
@@ -23,6 +23,7 @@
 
         vm.getThumbnail = getThumbnail;
         vm.onImageLoad = onImageLoad;
+        vm.factor = 1;
 
         vm.query = null;
 
@@ -106,6 +107,8 @@
                     "thumbnail.width",
                     "thumbnail.height",
                     "artist_display",
+                    "colorfulness",
+                    "pageviews",
                 ],
                 "from": 0,
                 "limit": 24,
@@ -113,16 +116,41 @@
                     "bool": {
                         "must": [
                             // TODO: Move `exists` here?
+                            {
+                                "exists": {
+                                    "field": "image_id"
+                                }
+                            }
                         ]
                     }
-                }
+                },
+                "functions": {
+                    "artworks":
+                        {
+                            "filter": {
+                                "exists": {
+                                    "field": "colorfulness",
+                                },
+                            },
+                            "field_value_factor": {
+                                "field": "colorfulness",
+                                "modifier": "none",
+                                "factor": eval(vm.factor),
+                                "missing": 1,
+                            },
+                        },
+                },
             };
 
         }
 
         function getTextQuery( text ) {
 
-            var query = { "q": text };
+            var query = {
+                "q": text,
+            };
+
+            console.log(query);
 
             if( vm.filter_on_view ) {
 
@@ -225,6 +253,8 @@
 
         // https://lodash.com/docs/4.17.5#mergeWith
         function customizer(objValue, srcValue) {
+
+            console.log(objValue, srcValue);
 
             // https://stackoverflow.com/a/4775741/1943591
             if ( objValue instanceof Array ) {

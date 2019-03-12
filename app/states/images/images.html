@@ -15,6 +15,18 @@
         </label>
     </div>
  -->
+
+    <div class="image-search-bar">
+        <span>Search by text: </span>
+        <input type="text" ng-model="vm.text" ng-change="vm.searchText()" ng-model-options="{ debounce: 200 }"/>
+        <span>Factor: </span>
+        <input type="text" ng-model="vm.factor" ng-change="vm.searchText()" ng-model-options="{ debounce: 200 }"/>
+        <label>
+            <input type="checkbox" ng-model="vm.filter_on_view" ng-change="vm.searchText()"/>
+            On view only
+        </label>
+    </div>
+
     <div class="image-container">
 
         <div class="image-item" ng-repeat="artwork in vm.artworks">
@@ -41,6 +53,10 @@
             </div>
 
             <div class="image-caption">
+
+                <p>{{ artwork._score }}</p>
+                <p>{{ artwork.colorfulness }}</p>
+                <p>{{ artwork.pageviews }}</p>
 
                 <p>
                     <a href="http://www.artic.edu/aic/collections/artwork/{{ artwork.id }}" target="_blank">
