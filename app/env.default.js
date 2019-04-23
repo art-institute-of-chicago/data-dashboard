@@ -1,4 +1,8 @@
 window.config = {
+    API_ENV: null,
+    API_ENVS: {
+        local: 'data-dashboard.test',
+    },
     API_URLS: {
         local: 'http://data-aggregator.test/api/v1/',
     },

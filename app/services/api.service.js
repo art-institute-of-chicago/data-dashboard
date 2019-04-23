@@ -78,10 +78,22 @@
 
         function initEnv()
         {
-            var env = $window.localStorage.getItem('env');
+            var envs = window.config.API_ENVS;
+            var env;
 
-            return setEnv( env );
+            if (window.config.API_ENV !== null) {
+                return setEnv(window.config.API_ENV);
+            }
 
+            for (var property in envs) {
+                if (envs.hasOwnProperty(property)) {
+                    if (envs[property] === window.location.hostname) {
+                        env = property;
+                    }
+                }
+            }
+
+            return setEnv(env);
         }
 
         function changeEnv( env )
@@ -100,9 +112,6 @@
 
             // Add trailing slash to the url, if it's missing
             settings.url = settings.url.replace(/\/?$/, '/');
-
-            // Save env to localStorage
-            $window.localStorage.setItem('env', env);
 
             settings.env = env;
 

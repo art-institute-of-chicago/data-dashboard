@@ -55,8 +55,6 @@
                 views: {
                     'sidebar@': {
                         templateUrl: 'states/sidebar/sidebar.html',
-                        controller: 'SidebarController',
-                        controllerAs: 'vm',
                     },
                 }
             })
