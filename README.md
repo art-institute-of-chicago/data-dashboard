@@ -46,7 +46,7 @@ npm install
 
 ## Contributing
 
-We encourage your contributions. Please fork this repository and make your changes in a separate branch. You can use [git-flow](https://github.com/nvie/gitflow) to make this process easier.
+We encourage your contributions. Please fork this repository and make your changes in a separate branch. To better understand how we organize our code, please review our [version control guidelines](https://docs.google.com/document/d/1B-27HBUc6LDYHwvxp3ILUcPTo67VFIGwo5Hiq4J9Jjw).
 
 ```bash
 # Clone the repo to your computer
@@ -59,12 +59,12 @@ cd data-aggregator
 composer install
 
 # Start a feature branch
-git flow start feature yourinitials-good-description-issuenumberifapplicable
+git checkout -b feature/good-short-description
 
 # ... make some changes, commit your code
 
 # Push your branch to GitHub
-git push origin yourinitials-good-description-issuenumberifapplicable
+git push origin feature/good-short-description
 ```
 
 Then on github.com, create a Pull Request to merge your changes into our
