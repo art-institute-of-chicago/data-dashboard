@@ -39,8 +39,16 @@ git clone https://github.com/art-institute-of-chicago/data-dashboard.git
 # Enter the folder that was created by the clone
 cd data-dashboard
 
+# Commands to get `grunt` to run
+nvm use 14
+npm install -g grunt-cli
+gem install sass
+
 # Install all the project's NPM dependencies
-npm install
+npm ci
+
+# Run grunt
+grunt
 ```
 
 
