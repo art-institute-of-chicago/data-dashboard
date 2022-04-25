@@ -16,16 +16,13 @@
         // define public interface
         return {
             get: search,
+            imageSearch: imageSearch,
         };
-
 
         // returns an angular promise
         function search( params ) {
 
-            // Standardize resolution
-            var deferred = $q.defer();
-
-            ApiService.post( 'search', {
+            return getSearchPromise('search', {
 
                 from: params.from || params.start || params.offset || 0,
                 limit: params.limit || params.rows || params.size || null,
@@ -36,7 +33,30 @@
                 sort: params.sort || null,
                 q: params.q || null,
 
-            }).then( function( response ) {
+            });
+
+        }
+
+        function imageSearch( params ) {
+
+            return getSearchPromise('image-search', {
+
+                from: params.from || params.start || params.offset || 0,
+                limit: params.limit || params.rows || params.size || null,
+                resources: params.resources || null,
+                fields: params.fields || null,
+                file: params.file || null,
+
+            });
+
+        }
+
+        function getSearchPromise( endpoint, params ) {
+
+            // Standardize resolution
+            var deferred = $q.defer();
+
+            ApiService.post( endpoint, params).then( function( response ) {
 
                 // Unwrap POST response data
                 var response = response.data;

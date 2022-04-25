@@ -15,6 +15,16 @@
         </label>
     </div>
 
+    <div class="image-search-bar">
+        <form name="imageUpload">
+            <span>Search by image file: </span>
+
+            <input type="file" accept="image/png, image/jpeg" name="imageFile">
+
+            <button type="submit" ng-click="vm.searchImage()">Search</button>
+        </form>
+    </div>
+
     <div class="image-container">
 
         <div class="image-item" ng-repeat="artwork in vm.artworks">

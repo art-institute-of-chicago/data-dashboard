@@ -20,6 +20,7 @@
 
         vm.searchColor = searchColor;
         vm.searchText = searchText;
+        vm.searchImage = searchImage;
 
         vm.getThumbnail = getThumbnail;
         vm.onImageLoad = onImageLoad;
@@ -58,6 +59,65 @@
             var query = getTextQuery( text );
 
             search( query );
+
+        }
+
+        // https://stackoverflow.com/questions/23945494/use-html5-to-resize-an-image-before-upload
+        function searchImage() {
+
+            var file = document.forms['imageUpload']['imageFile'].files[0];
+
+            if (!file.type.match(/image.*/)) {
+                console.log('File is not an image');
+                return;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = function (readerEvent) {
+
+                var image = new Image();
+
+                image.onload = function (imageEvent) {
+
+                    console.log('An image has been loaded');
+
+                    var canvas = document.createElement('canvas'),
+                        max_size = 128,
+                        width = image.width,
+                        height = image.height;
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+                    var dataUrl = canvas.toDataURL('image/jpeg');
+
+                    // TODO: Chop off mimetype header from base64 string?
+
+                    var query = getImageSearchQuery( dataUrl );
+
+                    SearchService.imageSearch( query ).then( function( data ) {
+
+                        vm.artworks = data.results;
+
+                    });
+
+                }
+
+                image.src = readerEvent.target.result;
+            }
+
+            reader.readAsDataURL(file);
 
         }
 
@@ -109,6 +169,13 @@
                 ],
                 "from": 0,
                 "limit": 24,
+            };
+
+        }
+
+        function getBaseSearchQuery() {
+
+            return lodash.mergewith( getBaseQuery(), {
                 "query": {
                     "bool": {
                         "must": [
@@ -116,7 +183,7 @@
                         ]
                     }
                 }
-            };
+            }, customizer );
 
         }
 
@@ -143,7 +210,7 @@
 
             }
 
-            return lodash.mergewith( getBaseQuery(), query, customizer );
+            return lodash.mergewith( getBaseSearchQuery(), query, customizer );
 
         }
 
@@ -198,6 +265,16 @@
                         ]
                     }
                 }
+            };
+
+            return lodash.mergewith( getBaseSearchQuery(), query, customizer );
+
+        }
+
+        function getImageSearchQuery( base64 ) {
+
+            var query = {
+                "file": base64,
             };
 
             return lodash.mergewith( getBaseQuery(), query, customizer );

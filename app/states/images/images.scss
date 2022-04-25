@@ -4,6 +4,10 @@
 
     .image-search-bar {
         margin-bottom: 30px;
+
+        input[type=file] {
+            display: inline-block;
+        }
     }
 
     .image-container {
