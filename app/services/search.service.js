@@ -64,11 +64,6 @@
                 deferred.resolve( {
 
                     results: response.data,
-                    total: response.pagination.total,
-                    start: response.pagination.offset,
-
-                    // TODO: Combine phrase suggest and autocomplete?
-                    autocomplete: ( response.suggest && response.suggest.autocomplete ) ? response.suggest.autocomplete : [],
 
                 });
 
