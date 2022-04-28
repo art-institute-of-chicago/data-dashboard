@@ -162,6 +162,7 @@
                     "image_id",
                     "is_boosted",
                     "is_on_view",
+                    "thumbnail",
                     "thumbnail.lqip",
                     "thumbnail.width",
                     "thumbnail.height",
