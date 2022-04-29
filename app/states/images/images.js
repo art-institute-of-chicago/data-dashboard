@@ -276,6 +276,7 @@
 
             var query = {
                 "file": base64,
+                "hash_type": 'phash',
             };
 
             return lodash.mergewith( getBaseQuery(), query, customizer );

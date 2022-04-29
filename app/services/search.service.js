@@ -46,6 +46,7 @@
                 resources: params.resources || null,
                 fields: params.fields || null,
                 file: params.file || null,
+                hash_type: params.hash_type || null,
 
             });
 
