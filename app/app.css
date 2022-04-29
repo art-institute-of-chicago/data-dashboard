@@ -1,0 +1,156 @@
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  color: #333333;
+}
+
+.aic-layout-main {
+  position: fixed;
+  left: 40px;
+  width: calc( 100% - 40px );
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.aic-images {
+  padding: 30px;
+}
+.aic-images .image-search-bar {
+  margin-bottom: 30px;
+}
+.aic-images .image-search-bar input[type=file] {
+  display: inline-block;
+}
+.aic-images .image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.aic-images .image-caption {
+  padding: 10px 0;
+}
+.aic-images .image-item {
+  flex-basis: 192px;
+  text-align: left;
+  padding: 10px;
+}
+.aic-images .image-proportion {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+}
+.aic-images .image-indicator {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.aic-images .image-indicator::after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 80% 80%;
+}
+.aic-images .image-indicator-on-view {
+  top: 0px;
+}
+.aic-images .image-indicator-on-view::after {
+  background-image: url("shared/icon-eye.svg");
+  filter: invert(0.5) sepia(1) saturate(10) hue-rotate(40deg);
+}
+.aic-images .image-indicator-boosted {
+  top: 20px;
+}
+.aic-images .image-indicator-boosted::after {
+  background-image: url("shared/icon-chevron.svg");
+  filter: invert(0.5) sepia(1) saturate(10) hue-rotate(5deg);
+}
+.aic-images .image-none,
+.aic-images .image-lqip,
+.aic-images .image-tn {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.aic-images .image-none {
+  background-image: url("shared/image-not-available.svg");
+}
+.aic-images .image-none,
+.aic-images .image-lqip {
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+.aic-images .image-lqip-blur {
+  filter: blur(10px);
+}
+.aic-images .image-tn {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity .2s;
+  z-index: 2;
+}
+.aic-images .image-tn.image-loaded {
+  opacity: 100;
+}
+.aic-images .image-tn img {
+  width: 100%;
+}
+
+.aic-sidebar {
+  position: fixed;
+  left: 0;
+  width: 40px;
+  height: 100%;
+  overflow: hidden;
+  background: #333;
+  border-right: #666 3px solid;
+}
+.aic-sidebar ul.sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+.aic-sidebar li.sidebar-item a {
+  display: block;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+}
+.aic-sidebar li.sidebar-item a.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.aic-sidebar li.sidebar-item a:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.aic-sidebar svg {
+  fill: #eee;
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+select.form-control {
+  -webkit-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='DimGray' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+}
